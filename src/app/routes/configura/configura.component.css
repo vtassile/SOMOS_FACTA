@@ -1,0 +1,25 @@
+@import "../../colores.scss";
+
+.mat-tab-group {
+    margin-bottom: 48px;
+  }
+
+  ._imagen {
+     max-width: 90px;
+    max-height: 90px;
+}
+
+.encabezado{
+  color: rgba(255, 255, 255, 1);
+  background-color: #00528A;
+}
+
+.recuadro{
+  margin-bottom: 30px;
+
+}
+
+.carga-imagen{
+  max-height: 100px;
+}
+

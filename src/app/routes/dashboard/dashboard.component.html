@@ -1,0 +1,120 @@
+<page-header></page-header>
+
+<mat-card class="mat-elevation-z4 " fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-title>
+        Bienvenidos a Somos FACTA!!
+    </mat-card-title>
+    <mat-card-content>
+        Una aplicación para que puedas gestionar Beneficios de la Facu
+    </mat-card-content>
+</mat-card>
+<br>
+<div *ngIf="seteo2">
+    <div class="swiper-container acomoda_carta" [swiper]="config" (indexChange)="onIndexChange($event)">
+        <div class="swiper-wrapper">
+            <div *ngFor="let slide of sliders;let indice=index" class="swiper-slide">
+                <div class="entorno" style="background-image:url({{slide.imagePath}})">
+                    <div class="contenido">
+                        <h2 class="etiqueta">{{ slide.label }}</h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="swiper-scrollbar" [hidden]="config.scrollbar === false"></div>
+        <div class="swiper-pagination" [hidden]="config.pagination === false"></div>
+        <div class="swiper-button-prev" [hidden]="config.navigation === false"></div>
+        <div class="swiper-button-next" [hidden]="config.navigation === false"></div>
+    </div>
+</div>
+
+
+<br>
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+    <mat-card class="mat-elevation-z4 servicios " fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>
+            DEPOSITAS
+        </mat-card-title>
+        <mat-card-content>
+            Lo que querés con tu usuario en Administración
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z4 servicios " fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>
+            ABONAS
+        </mat-card-title>
+        <mat-card-content>
+            Antes de tiempo de cierre
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z4 servicios " fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>
+            ELEGIS
+        </mat-card-title>
+        <mat-card-content>
+            Menú Tradicional o Vegetariano
+        </mat-card-content>
+    </mat-card>
+</div>
+<div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+    <mat-card class="mat-elevation-z4 servicios " fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>
+            CONSUMIS
+        </mat-card-title>
+        <mat-card-content>
+            Informando tu usuario o QR
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z4 servicios" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>
+            TRANSFERIS
+        </mat-card-title>
+        <mat-card-content>
+            Podes pasarle crédito a un amigo
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z4 servicios" fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title>
+            ESTAS INFORMADO
+        </mat-card-title>
+        <mat-card-content>
+            De las propuestas de la FACTA
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+<mat-card parallax class="informa" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-title class="blanco" fxLayout="column" fxLayoutAlign="center center">
+        <h2> Somos FACTA</h2>
+        <div>Versión 1.2</div>
+    </mat-card-title>
+    <h4 class="blanco">Seguinos en</h4>
+    <mat-card-content fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+
+        <div class="social-media w-full" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+            <button class="btn1">
+                <a href="https://www.facebook.com/alimentosuniversidaddelcomahue" target="_blank">
+                    <i class="fa fa-facebook fa-lg"></i>
+                </a>
+            </button>
+            <button class="btn2">
+                <a href="https://www.instagram.com/alimentos.comahue/" target="_blank">
+                    <i class="fa fa-instagram fa-lg"></i>
+                </a>
+            </button>
+            <button class="btn3">
+                <a href="https://www.twitch.tv/facta_unco" target="_blank">
+                    <i class="fa fa-twitch fa-lg"></i>
+                </a>
+            </button>
+        </div>
+
+    </mat-card-content>
+    <div class="blanco">25 de Mayo y Reconquista-Villa Regina-Río Negro</div>
+
+</mat-card>

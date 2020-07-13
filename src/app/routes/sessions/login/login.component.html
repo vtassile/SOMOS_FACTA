@@ -1,0 +1,54 @@
+<div class="w-full h-full principal" fxLayout="row wrap" fxLayoutAlign="center center" >
+  <mat-card class="mat-elevation-z4 m-b-0 tarjeta" >
+
+  <mat-card-title >
+      <img class="matero-user-panel-avatar" src="{{logo_aplicacion}}" alt="avatar"  />
+    <span style="color:beige">{{titulo_aplicacion}}</span>
+ </mat-card-title> 
+    <mat-card-content class="text-center  mat-h2">INGRESE A SU CUENTA</mat-card-content>
+    <mat-card-content>
+      <form class="form-field-full" [formGroup]="angForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Usuario</mat-label>
+          <input matInput placeholder="Ingrese usuario" formControlName="s_username" required>
+          <mat-error *ngIf="angForm.get('s_username').invalid">Ingrese usuario</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Ingrese contraseña" type="password" formControlName="s_clave" required>
+          <mat-error *ngIf="angForm.get('s_clave').invalid">Ingrese contraseña</mat-error>
+        </mat-form-field>
+
+        <div class="m-y-16" fxLayout="row" fxLayoutAlign="space-between center">
+          <a href="">Olvidaste tu contraseña?</a>
+        </div>
+
+        <button class="w-full" mat-raised-button color="primary" (click)="login($event)"
+          [disabled]="angForm.invalid">Iniciar Sesión</button>
+
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <div class="social-media w-full">
+          <!--sign up by fb and tw-->
+          <button class="btn1">
+            <a href="#" target="_blank" (click)="signInWithFB($event)">
+              <i class="fa fa-facebook"></i>&nbsp;&nbsp; Iniciar con Facebook
+            </a>
+          </button>
+
+          <button class="btn2">
+            <a href="#" target="_blank" (click)="signInWithGoogle($event)">
+              <i class="fa fa-google"></i> &nbsp;&nbsp; Iniciar con Google
+            </a>
+          </button>
+        </div>
+
+
+
+        <div class="m-t-16">No te registraste? <a routerLink="/auth/register">Creá tu cuenta</a></div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

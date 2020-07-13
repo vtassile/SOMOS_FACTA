@@ -1,0 +1,76 @@
+{
+  "menu": [{
+      "route": "dashboard",
+      "name": "dashboard",
+      "type": "link",
+      "icon": "house",
+      "nivel":1
+    },
+    {
+      "route": "dinning_room",
+      "name": "dinning_room",
+      "type": "sub",
+      "icon": "restaurant",
+      "nivel":1,
+      "children": [{
+          "route": "requests",
+          "name": "requests",
+          "type": "link",
+          "nivel":1
+        },         
+        {
+          "route": "my_QR",
+          "name": "my_QR",
+          "type": "link",
+          "nivel":1
+        },
+        {
+          "route": "menu_proposals",
+          "name": "menu_proposals",
+          "type": "link",
+          "nivel":2
+        },
+        {
+          "route": "payments",
+          "name": "payments",
+          "type": "link",
+          "nivel":3
+        },
+        {
+          "route": "consumptions",
+          "name": "consumptions",
+          "type": "link",
+          "nivel":2
+        },
+        {
+          "route": "tables",
+          "name": "various_tables",
+          "type": "link",
+          "icon": "dashboard",
+          "nivel":3
+        }
+      ]
+    },
+    {
+      "route": "musuario/abc",
+      "name": "users",
+      "type": "muser",
+      "icon": "emoji_people",
+      "nivel":3
+    },
+    {
+      "route": "configura",
+      "name": "configurations",
+      "type": "link",
+      "icon": "build",
+      "nivel":4,
+      "badge": {
+        "color": "red-500",
+        "value": "NUEVO"
+      }
+
+    }
+
+
+  ]
+}

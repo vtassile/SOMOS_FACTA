@@ -1,0 +1,24 @@
+<div class="maestro">
+  <div *ngIf="!imagen">
+    <input type=image src="assets/images/sonriente.jpg" (click)="fileInput.click()" class="usuario_imagen">
+  </div>
+  <div *ngIf="imagen">
+    <div class="container">
+      <div *ngIf="formatea">
+        <input type=image src="{{imagen}}" (click)="fileInput.click()" class="usuario_imagen"
+          [style.max-height.px]="ancho" [style.max-width.px]="alto">
+      </div>
+      <div *ngIf="!formatea">
+        <input type=image src="{{imagen}}" (click)="fileInput.click()" class="usuario_imagen2"
+          [style.max-height.px]="ancho" [style.max-width.px]="alto">
+      </div>
+      <div class="text middle" (click)="fileInput.click()">
+        Cambiar
+      </div>
+    </div>
+  </div>
+  <span
+    style="visibility: hidden; position: absolute; overflow: hidden; width: 0px; height:0px;border:none;margin:0; padding:0">
+    <input #fileInput type="file" accept="image/*" name="file" ng2FileSelect [uploader]="uploader" />
+  </span>
+</div>

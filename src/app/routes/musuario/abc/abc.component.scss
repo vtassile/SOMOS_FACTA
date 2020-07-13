@@ -1,0 +1,140 @@
+@import "../../../colores.scss";
+
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+
+}
+
+encima {
+    background:url('assets/images/sonriente.jpg');
+    width:30px;height:30px;
+}
+boton {
+    position:relative;
+    left:15px;
+    top:15px;
+}
+
+
+mat-divider{
+    margin-top: 14px;
+    margin-bottom: 14px;
+  }
+  
+  /*facebook social-media button style*/
+  .social-media{margin-bottom: 35px;}
+  .social-media .btn1 {/*facebook button*/
+    border: 0;
+    background: #3B5998;
+    color: #fff;
+    padding: 15px;
+    width: 100%;
+    margin-top: 14px;
+    border-radius: 5px;
+    justify-content: center;
+    &:hover {
+      background: rgba(#3a589a, 0.8);
+    }
+  
+  }
+  .social-media .btn2 {/*goole button*/
+    border: 0;
+    padding: 15px;
+    margin-top: 11px;
+    width: 100%;
+    border-radius: 5px;
+    background: #e9605b;
+    color: #fff;
+    justify-content: center;
+  
+    &:hover {
+      background: rgba( #ec7d79, 0.8);
+    }
+  
+  }
+  .social-media button>a{color: #fff;text-decoration: none;}
+  /************/
+
+  .usuario_imagen {
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    max-width: 150px;
+    max-height: 150px;
+    margin:15px;
+    opacity: 1;
+    display: block;
+    height: auto;
+}
+
+.mat-card-title{
+  display:flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: $main-claro-propio;
+  max-height: 150px;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.text {
+background-color: #3F51B5;
+  padding: 5px 10px;
+  border-radius: 20%;
+  color:white;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.image:hover {
+  opacity: 0.3;
+}
+
+
+.container:hover .middle {
+  opacity: 0.8;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: row;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 3px;
+}
+
+.boton {
+  margin-right: 1vw !important;
+  height: 40px !important;
+  width: 160px !important;
+  border: 15px;
+
+}
+
+.tarjeta{
+    margin:25px; 
+    max-width: 360px;
+}
+
+.principal{
+    background-color:#fff;
+}

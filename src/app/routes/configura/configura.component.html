@@ -1,0 +1,109 @@
+<page-header></page-header>
+<mat-tab-group>
+  <mat-tab label="General">
+    <br>
+    <mat-card-content>
+      <div *ngIf="angForm_2" class="w-full h-full recuadro" fxLayout="row wrap" fxLayoutAlign="center center">
+        <form class="form-field-full" [formGroup]="angForm_2">
+          <mat-form-field appearance="outline">
+            <mat-label>Título Principal</mat-label>
+            <input matInput formControlName="titulo_principal">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Subtítulo Principal</mat-label>
+            <input matInput formControlName="subtitulo_principal">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Título Footer</mat-label>
+            <input matInput formControlName="titulo_footer">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Primer Subtítulo Footer</mat-label>
+            <input matInput formControlName="subtitulo1_footer">
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>Segundo Subtitulo Footer</mat-label>
+            <input matInput formControlName="subtitulo2_footer">
+          </mat-form-field>
+        </form>
+
+      </div>
+    </mat-card-content>
+    <mat-card fxLayoutGap="5px" fxLayout="row " fxLayoutAlign="space-around space-around ">
+      <button mat-raised-button class="boton" color="primary" (click)="update($event)">Confirmar</button>
+      <button mat-raised-button class="boton" color="warn" [routerLink]="['/']">Cancelar</button>
+    </mat-card>
+
+
+  </mat-tab>
+  <mat-tab label="Imagenes">
+    <mat-card-content>
+      <div *ngIf="angForm_2" class="w-full h-full" fxLayout="row wrap" fxLayoutAlign="center center">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>Primer Avatar</td>
+              <td>
+                <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_1" [ancho]="ancho_imagen"
+                  [alto]="alto_imagen" [calidad]="70" (imagen_salida)="cambia_valor('imagen_1',$event)">
+                </app-carga-imagen>
+              </td>
+            </tr>
+            <tr>
+              <td>Segundo Avatar</td>
+              <td>
+                <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_2" [ancho]="ancho_imagen"
+                  [alto]="alto_imagen" [calidad]="calidad_imagen" (imagen_salida)="cambia_valor('imagen_2',$event)">
+                </app-carga-imagen>
+              </td>
+            </tr>
+            <tr>
+              <td>Primer Slide Principal</td>
+              <td>
+                <app-carga-imagen class="carga-imagen" [imagen_ingreso]="angForm_2.value.imagen_3" [ancho]="ancho_imagen_slider" [alto]="alto_imagen_slider"
+                  [calidad]="calidad_imagen_slider" (imagen_salida)="cambia_valor('imagen_3',$event)">
+                </app-carga-imagen>
+              </td>
+            </tr>
+            <tr>
+              <td>Segundo Slide Principal</td>
+              <td>
+                <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_4" [ancho]="ancho_imagen_slider"
+                  [alto]="alto_imagen_slider" [calidad]="70" (imagen_salida)="cambia_valor('imagen_4',$event)">
+                </app-carga-imagen>
+              </td>
+            </tr>
+            <tr>
+              <td>Tercer Slide Principal</td>
+              <td>
+                <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_5" [ancho]="ancho_imagen_slider"
+                  [alto]="alto_imagen_slider" [calidad]="70" (imagen_salida)="cambia_valor('imagen_5',$event)">
+                </app-carga-imagen>
+              </td>
+            </tr>
+            <tr>
+              <td>Cuarto Slide Principal</td>
+              <td>
+                <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_6" [ancho]="ancho_imagen_slider"
+                  [alto]="alto_imagen_slider" [calidad]="70" (imagen_salida)="cambia_valor('imagen_6',$event)">
+                </app-carga-imagen>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </mat-card-content>
+    <mat-card fxLayoutGap="5px" fxLayout="row " fxLayoutAlign="space-around space-around ">
+      <button mat-raised-button class="boton" color="primary" (click)="update($event)">Confirmar</button>
+      <button mat-raised-button class="boton" color="warn" [routerLink]="['/']">Cancelar</button>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Particular">
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,23 @@
+@import "../../colores.scss";
+
+.pie_pagina {
+    background-color: $main-oscuro-propio;
+    color: #fff;
+}
+.texto_pie {
+    margin: 10px;
+}
+.vinculo {
+    color: white;
+}
+.vinculo:hover {
+    color: $cancel-propio;
+}
+
+
+@media (max-width: 375px) {
+    .texto_pie {
+        margin: 10px;
+        font-size: small;
+    }
+}

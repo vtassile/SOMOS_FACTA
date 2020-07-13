@@ -1,0 +1,66 @@
+<div class="w-full h-full principal" fxLayout="row wrap" fxLayoutAlign="center center" >
+  <mat-card class="mat-elevation-z4 m-b-0 tarjeta" >
+
+    <mat-card-title  >
+      <img class="matero-user-panel-avatar" src="{{logo_aplicacion}}" alt="avatar" />
+      <span style="color:beige">{{titulo_aplicacion}}</span>
+    </mat-card-title>
+    <mat-card-content class="text-center mat-h2">CREÁ TU CUENTA</mat-card-content>
+
+    <mat-card-content>
+      <form class="form-field-full" [formGroup]="angForm_2">
+        <mat-form-field appearance="outline">
+          <mat-label>Usuario</mat-label>
+          <input matInput placeholder="Ingrese Usuario" formControlName="s_username" required>
+          <mat-error *ngIf="angForm_2.get('s_username').invalid && angForm_2.get('s_username').dirty">Ingrese usuario
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mail</mat-label>
+          <input matInput placeholder="Ingrese Email" formControlName="s_email" required>
+          <mat-error *ngIf="angForm_2.get('s_email').hasError('required')">Ingrese Email</mat-error>
+          <mat-error *ngIf="angForm_2.get('s_email').hasError('email')">Ingrese Email Válido</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput placeholder="Ingrese Contraseña" type="password" formControlName="s_clave" required>
+          <mat-error *ngIf="angForm_2.get('s_clave').hasError('required')">Ingrese contraseña</mat-error>
+          <mat-error *ngIf="angForm_2.get('s_clave').hasError('minlength')">Contraseña con mínimo 12 Caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Confirmar Contraseña</mat-label>
+          <input matInput placeholder="Confirme Contraseña" type="password" formControlName="confirmPassword" required>
+          <mat-error *ngIf="angForm_2.get('confirmPassword').hasError('required')">Confirme contraseña!</mat-error>
+          <mat-error *ngIf="angForm_2.get('confirmPassword').hasError('confirm')">Contraseña inconsistente!</mat-error>
+        </mat-form-field>
+
+        <button class="w-full" mat-raised-button color="primary" (click)="onRegister($event)">Crear Cuenta</button>
+
+        <br>
+        <mat-divider></mat-divider>
+        <br>
+        <div class="social-media w-full">
+          <!--sign up by fb and tw-->
+          <button class="btn1">
+            <a href="#" target="_blank" (click)="crear_face($event)">
+              <i class="fa fa-facebook"></i>&nbsp;&nbsp; Crear Cuenta con Facebook
+            </a>
+          </button>
+          <button class="btn2">
+            <a href="#" target="_blank" (click)="crear_google($event)">
+              <i class="fa fa-google"></i> &nbsp;&nbsp; Crear Cuenta con Google
+            </a>
+          </button>
+        </div>
+
+
+        <div class="m-t-16">Ya tenés cuenta? <a routerLink="/auth/login">Iniciar Sesión</a></div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

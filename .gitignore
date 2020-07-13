@@ -6,7 +6,8 @@
 /out-tsc
 # Only exists if Bazel was run
 /bazel-out
-
+# quita referencias de accesos y claves
+/src/app/shared/global
 # dependencies
 /node_modules
 

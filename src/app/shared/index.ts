@@ -4,7 +4,9 @@ export * from './models/rol.model';
 export * from './models/tmenu.model';
 export * from './models/userclass.model';
 export * from './models/seteo.model';
-
+export * from './models/mdia.model';
+export * from './models/tmov.model';
+export * from './models/reserva.model';
 
 // Services
 export * from './services/storage.service';

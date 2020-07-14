@@ -1,0 +1,51 @@
+<page-header></page-header>
+
+<div>
+  <div class="card-header">Usuarios del Sistema</div>
+  <div class="card-body table-responsive ">
+    <table class="table table-striped" [mfData]="data | dataFilter : filterQuery:'s_username':''" #mf="mfDataTable"
+      [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <thead>
+        <tr>
+          <th style="width: 10%">
+            <mfDefaultSorter by="s_username">Usuario</mfDefaultSorter>
+          </th>
+          <th style="width: 10%">
+            <mfDefaultSorter by="s_name">Nombre</mfDefaultSorter>
+          </th>
+          <th style="width: 10%">
+            <mfDefaultSorter by=".s_surname">Apellido</mfDefaultSorter>
+          </th>
+          <td colspan="3"> </td>
+        </tr>
+
+        <tr>
+          <th>
+            <input class="form-control" [(ngModel)]="filterQuery" />
+          </th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let tusuario of mf.data">
+          <td>{{ tusuario.s_username}}</td>
+          <td>{{ tusuario.s_name }}</td>
+          <td>{{ tusuario.s_surname  }}</td>
+          <td><a [routerLink]="['/muser',tusuario._id]" class="btn btn-primary">Editar</a></td>
+          <td><button (click)="delete(tusuario._id)" class="btn btn-danger ">Borrar</button></td>
+          <td><button (click)="resetea(tusuario._id)" class="btn btn-dark">Resetea</button></td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="4">
+            <mfBootstrapPaginator [rowsOnPageSet]="[50,100,200]"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+
+    </table>
+  </div>
+</div>

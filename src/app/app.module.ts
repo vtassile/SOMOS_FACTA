@@ -3,15 +3,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-//import { FileUploadModule } from "ng2-file-upload";
-
 import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
 import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from "angularx-social-login";
-
-import { AuthService } from "angularx-social-login";
 
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -23,17 +19,24 @@ import { DefaultInterceptor } from '@core';
 import { StartupService } from '@core';
 import { AuthGuard } from '@shared';
 
+import { AuthService } from "angularx-social-login";
+
 import { SesionService } from "@shared/services/sesion.service";
 import { UserService } from "@shared/services/user.service";
 import { RolService } from "@shared/services/rol.service";
-import { UserClasService} from "@shared/services/clasuser.service";
-import {TMenuService } from "@shared/services/tmenu.service";
-import{SeteoService} from "@shared/services/seteo.service";
+import { UserClasService } from "@shared/services/clasuser.service";
+import { TMenuService } from "@shared/services/tmenu.service";
+import { SeteoService } from "@shared/services/seteo.service";
+import { MDiaService } from '@shared/services/mdia.service';
+import { ReservaService } from '@shared/services/reserva.service';
+import { TMovService } from '@shared/services/tmov.service';
 
-import { GOOGLE,FACEBOOK } from "@shared";
 
 
-let config = new AuthServiceConfig([ GOOGLE, FACEBOOK]);
+import { GOOGLE, FACEBOOK } from "@shared";
+
+
+let config = new AuthServiceConfig([GOOGLE, FACEBOOK]);
 
 export function provideConfig() {
   return config;
@@ -77,7 +80,7 @@ export function TranslateHttpLoaderFactory(http: HttpClient) {
     SocialLoginModule,
     FlexLayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-//    FileUploadModule,
+    //    FileUploadModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: DefaultInterceptor, multi: true },
@@ -87,8 +90,9 @@ export function TranslateHttpLoaderFactory(http: HttpClient) {
       useFactory: StartupServiceFactory,
       deps: [StartupService],
       multi: true,
-    },AuthGuard, UserService, SesionService,AuthService,
-      RolService,UserClasService,TMenuService,SeteoService,
+    }, AuthGuard, UserService, SesionService, AuthService,
+    RolService, UserClasService, TMenuService, SeteoService, 
+    MDiaService, ReservaService, TMovService, 
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
@@ -97,4 +101,4 @@ export function TranslateHttpLoaderFactory(http: HttpClient) {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

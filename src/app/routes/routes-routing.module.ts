@@ -29,6 +29,7 @@ const routes: Routes = [
       },
   { path: 'configura', loadChildren: () => import('./configura/configura.module').then(m => m.ConfiguraModule) },
   { path: 'musuario', loadChildren: () => import('./musuario/musuario.module').then(m => m.MusuarioModule) },
+  { path: 'tusuario', loadChildren: () => import('./tusuario/tusuario.module').then(m => m.TUsuarioModule) },
     ],
   },
   {

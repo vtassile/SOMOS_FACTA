@@ -38,6 +38,7 @@
     "angularx-social-login": "^2.3.1",
     "crypto-js": "^4.0.0",
     "font-awesome": "^4.7.0",
+    "lodash": "^4.17.19",
     "ng-matero": "^9.3.1",
     "ng2-file-upload": "^1.4.0",
     "ngx-material-file-input": "^2.1.1",

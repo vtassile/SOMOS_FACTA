@@ -7,7 +7,10 @@ import {
 } from 'ngx-swiper-wrapper';
 
 import { TUsuarioRoutingModule } from './tusuario-routing.module';
+import { AgGridModule } from 'ag-grid-angular';
+
 import { NgxDataTableModule } from "angular-9-datatable";
+
 import { TUsuarioComponent } from './tusuario.component';
 import { DataFilterPipe } from './data-filter-pipe.pipe';
 
@@ -34,7 +37,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
 };
 
 @NgModule({
-    imports: [SharedModule, TUsuarioRoutingModule, SwiperModule, NgxDataTableModule],
+    imports: [SharedModule, TUsuarioRoutingModule, SwiperModule, AgGridModule.withComponents([]), 
+        NgxDataTableModule],
     declarations: [...COMPONENTS, ...COMPONENTS_DYNAMIC, DataFilterPipe],
     entryComponents: COMPONENTS_DYNAMIC,
     providers: [{

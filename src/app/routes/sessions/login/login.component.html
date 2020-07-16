@@ -10,13 +10,13 @@
       <form class="form-field-full" [formGroup]="angForm">
         <mat-form-field appearance="outline">
           <mat-label>Usuario</mat-label>
-          <input matInput placeholder="Ingrese usuario" formControlName="s_username" required>
+          <input matInput placeholder="alumno" formControlName="s_username" required>
           <mat-error *ngIf="angForm.get('s_username').invalid">Ingrese usuario</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
-          <input matInput placeholder="Ingrese contraseña" type="password" formControlName="s_clave" required>
+          <input matInput placeholder="alumno" type="password" formControlName="s_clave" required>
           <mat-error *ngIf="angForm.get('s_clave').invalid">Ingrese contraseña</mat-error>
         </mat-form-field>
 

@@ -34,6 +34,8 @@
     "@ngx-formly/material": "^5.5.15",
     "@ngx-translate/core": "^12.1.2",
     "@ngx-translate/http-loader": "~4.0.0",
+    "ag-grid-angular": "^23.2.1",
+    "ag-grid-community": "^23.2.1",
     "angular-9-datatable": "^0.1.1",
     "angularx-social-login": "^2.3.1",
     "crypto-js": "^4.0.0",

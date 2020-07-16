@@ -1,17 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { NgxDataTableModule } from "angular-9-datatable";
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { Observable, Subscription } from "rxjs";
 
 import { User } from "@shared";
 import { MDia } from '@shared';
 import { TMenu } from '@shared';
 import { TMov } from '@shared';
 import { Reserva } from '@shared';
-
 
 import { UserService } from "@shared/services/user.service";
 import { SeteoService } from "@shared/services/seteo.service";
@@ -30,6 +33,13 @@ import { ReservaService } from '@shared/services/reserva.service';
 })
 
 export class TUsuarioComponent implements OnInit {
+  // displayedColumns: string[] = ['s_username','s_name','s_surname','imageUrl','actions'];
+
+  displayedColumns: string[];
+  //   dataSource = new MatTableDataSource</* Type of Data */>();
+  currentScreenWidth: string = '';
+  flexMediaWatcher: Subscription;
+
   public identity;
   public token;
   public fecha_servidor;
@@ -40,16 +50,11 @@ export class TUsuarioComponent implements OnInit {
   tmovs: TMov[];
   reservas: Reserva[];
   public accion;
-  data: User[];
+  // data: User[];
   public rol;
+  data = null;
 
-  public filterQuery = "";
-  public rowsOnPage = 20;
-  public sortBy = "usuario.s_username";
-  public sortOrder = "asc";
-  public campo1 = "usuario";
-  public campo2 = "s_username";
-  public query3 = "";
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public router: Router, private mdiaservice: MDiaService,
     private _sesionService: SesionService,
@@ -57,25 +62,30 @@ export class TUsuarioComponent implements OnInit {
     private tmovservice: TMovService,
     private reservaservice: ReservaService,
     private _userService: UserService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder, private mediaObserver: MediaObserver) {
+    this.flexMediaWatcher = mediaObserver.media$.subscribe((change: MediaChange) => {
+      if (change.mqAlias !== this.currentScreenWidth) {
+        this.currentScreenWidth = change.mqAlias;
+        this.setupTable();
+      }
+    }); // Be sure to unsubscribe from this in onDestroy()!
+  }
 
   ngOnInit() {
 
     this.accion = "Si";
-
     if (localStorage.getItem('isLoggedin')) {
       this.identity = this._sesionService.getIdentity();
       this.rol = parseInt(this.identity.rol.n_nivel);
       this.token = this._sesionService.getToken();
-
     }
 
     this._userService
       .tget()
       .subscribe((data: User[]) => {
-        this.data = data;
-
-
+        //      this.data = data;
+        this.data = new MatTableDataSource(data);
+        this.data.paginator = this.paginator;
       });
 
     this.reservaservice
@@ -108,9 +118,27 @@ export class TUsuarioComponent implements OnInit {
 
   }
 
+  setupTable() {
+    this.displayedColumns= ['edita','s_username','s_name','s_surname','imageUrl','actions'];
+    if (this.currentScreenWidth === 'xs') { // only display internalId on larger screens
+      this.displayedColumns= ['edita','s_username','imageUrl','actions'];
+
+    }
+  };
+
+
+  applyFilter(filterValue: string) {
+    this.data.filter = filterValue.trim().toLowerCase();
+  }
+
+  modifica(parametro) {
+    console.log("Esta pasando por aca");
+    console.log(parametro);
+    this.router.navigate(["musuario/abc", parametro._id]);
+  }
 
   delete(id) {
-    this._userService.delete(id)
+    this._userService.delete(id._id)
       .subscribe(res => {
         alert('El Usuario se Borro Exitosamente');
         this.router.navigate(["tusuarios"]);
@@ -118,8 +146,7 @@ export class TUsuarioComponent implements OnInit {
   }
 
   resetea(id) {
-
-    this._userService.resetea(id, "clave2020")
+    this._userService.resetea(id._id, "clave2020")
       .subscribe(res => {
         alert('Reseteado de Clave de Usuario Exitosa');
         this.router.navigate(["tusuarios"]);
@@ -129,4 +156,3 @@ export class TUsuarioComponent implements OnInit {
 
 
 }
-

@@ -10,8 +10,9 @@ import { SesionService } from "@shared/services/sesion.service";
       class="matero-toolbar-button matero-avatar-button"
       href="javascript:void(0)"
       [matMenuTriggerFor]="menu"
-    >
-      <img class="matero-avatar" src="{{usuario_imagen}}" width="32" alt="avatar" />
+    >    
+      <img *ngIf="usuario_imagen!='null'"class="matero-avatar" src="{{usuario_imagen}}" width="32" alt="avatar" />
+      <img *ngIf="usuario_imagen=='null'" class="matero-avatar" src="assets/images/usuario_anonimo.jpg" width="32" alt="avatar" />
       <span class="matero-username" fxHide.lt-sm>{{nombre}}</span>
     </button>
 
@@ -40,7 +41,7 @@ export class UserComponent implements OnInit {
   public mail;
   public rol;
   public usuario_imagen;
-  
+
   ngOnInit() { }
 
   constructor(private _sesionService: SesionService) {
@@ -48,12 +49,12 @@ export class UserComponent implements OnInit {
     if (localStorage.getItem('isLoggedin')) {
       this.identity = this._sesionService.getIdentity();
       this.token = this._sesionService.getToken();
-      this.nombre = this.identity.s_name; 
-      this.nombre_apellido = this.identity.s_name+" "+this.identity.s_surname;
-      this.mail=this.identity.s_email;
-      this.rol=this.identity.rol.n_nivel;
-      this.usuario_imagen=this.identity.s_imagen;      
-       }
+      this.nombre = this.identity.s_name;
+      this.nombre_apellido = this.identity.s_name + " " + this.identity.s_surname;
+      this.mail = this.identity.s_email;
+      this.rol = this.identity.rol.n_nivel;
+      this.usuario_imagen = this.identity.s_imagen;
+    }
 
 
   }
@@ -62,7 +63,7 @@ export class UserComponent implements OnInit {
     localStorage.removeItem('isLoggedin');
     localStorage.removeItem('identity');
     localStorage.removeItem('token');
-}
+  }
 
 
 }

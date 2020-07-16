@@ -118,6 +118,7 @@ export class MusuarioAbcComponent implements OnInit {
         this.angForm_2.get("tmenu").setValue(this.agente.tmenu);
         this.angForm_2.get("id_face").setValue(this.agente.id_face);
         this.angForm_2.get("id_google").setValue(this.agente.id_google);
+        if(this.agente.s_imagen=='null'){this.agente.s_imagen="assets/images/usuario_anonimo.jpg"}
         this.angForm_2.get("s_imagen").setValue(this.agente.s_imagen);
         this.leido=true;
       });

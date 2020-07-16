@@ -31,12 +31,11 @@
     </ng-container>
 
     <ng-container matColumnDef="imageUrl">
-      <th mat-header-cell *matHeaderCellDef>Foto</th>
-      <td mat-cell *matCellDef="let element">
+      <mat-header-cell *matHeaderCellDef>Foto</mat-header-cell>
+      <mat-cell *matCellDef="let element">
         <img *ngIf="element.s_imagen!='null'" [src]="element.s_imagen" />
         <img *ngIf="element.s_imagen=='null'" src="assets/images/usuario_anonimo.jpg" />
-
-      </td>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">

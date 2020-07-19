@@ -1,0 +1,47 @@
+ngb-tabset ul.nav-tabs li a.nav-link.active {
+    font-size: 2.4vw;
+    margin: 0px;
+    padding: 0px;
+}
+
+.centrado {
+    text-align: center;
+}
+
+.ng-autocomplete {
+    max-width: 200px;
+    margin-top: 10px;
+    margin-left:15px;
+    margin-bottom: 5px;
+}
+
+.encabezado {
+    color: rgba(255, 255, 255, 1);
+    background-color: #00528a;
+}
+
+.mat-header-cell {
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .mat-cell {
+    text-align: center;
+    justify-content:center;
+  }
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+}
+
+@media screen and (min-width:992px) {
+    img {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+    }
+
+}
+

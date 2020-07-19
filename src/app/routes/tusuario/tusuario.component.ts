@@ -33,10 +33,8 @@ import { ReservaService } from '@shared/services/reserva.service';
 })
 
 export class TUsuarioComponent implements OnInit {
-  // displayedColumns: string[] = ['s_username','s_name','s_surname','imageUrl','actions'];
 
   displayedColumns: string[];
-  //   dataSource = new MatTableDataSource</* Type of Data */>();
   currentScreenWidth: string = '';
   flexMediaWatcher: Subscription;
 

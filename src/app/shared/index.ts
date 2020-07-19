@@ -7,6 +7,8 @@ export * from './models/seteo.model';
 export * from './models/mdia.model';
 export * from './models/tmov.model';
 export * from './models/reserva.model';
+export * from './models/money.model';
+export * from './models/maqueta.model';
 
 // Services
 export * from './services/storage.service';

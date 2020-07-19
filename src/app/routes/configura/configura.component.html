@@ -49,8 +49,8 @@
             <tr>
               <td>Primer Avatar</td>
               <td>
-                <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_1" [ancho]="ancho_imagen"
-                  [alto]="alto_imagen" [calidad]="70" (imagen_salida)="cambia_valor('imagen_1',$event)">
+                <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_1" [ancho]="ancho_avatar" [formatea]="false" [ancho_muestra]="100" [alto_muestra]="80"
+                  [alto]="alto_avatar" [calidad]="70" (imagen_salida)="cambia_valor('imagen_1',$event)">
                 </app-carga-imagen>
               </td>
             </tr>
@@ -65,8 +65,9 @@
             <tr>
               <td>Primer Slide Principal</td>
               <td>
-                <app-carga-imagen class="carga-imagen" [imagen_ingreso]="angForm_2.value.imagen_3" [ancho]="ancho_imagen_slider" [alto]="alto_imagen_slider"
-                  [calidad]="calidad_imagen_slider" (imagen_salida)="cambia_valor('imagen_3',$event)">
+                <app-carga-imagen class="carga-imagen" [imagen_ingreso]="angForm_2.value.imagen_3" [formatea]="false"
+                  [ancho]="ancho_imagen_slider" [alto]="alto_imagen_slider" [calidad]="calidad_imagen_slider"
+                  [ancho_muestra]="100" [alto_muestra]="41" (imagen_salida)="cambia_valor('imagen_3',$event)">
                 </app-carga-imagen>
               </td>
             </tr>
@@ -74,7 +75,8 @@
               <td>Segundo Slide Principal</td>
               <td>
                 <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_4" [ancho]="ancho_imagen_slider"
-                  [alto]="alto_imagen_slider" [calidad]="70" (imagen_salida)="cambia_valor('imagen_4',$event)">
+                  [formatea]="false" [alto]="alto_imagen_slider" [calidad]="70" [ancho_muestra]="100"
+                  [alto_muestra]="41" (imagen_salida)="cambia_valor('imagen_4',$event)">
                 </app-carga-imagen>
               </td>
             </tr>
@@ -82,15 +84,17 @@
               <td>Tercer Slide Principal</td>
               <td>
                 <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_5" [ancho]="ancho_imagen_slider"
-                  [alto]="alto_imagen_slider" [calidad]="70" (imagen_salida)="cambia_valor('imagen_5',$event)">
+                  [formatea]="false" [alto]="alto_imagen_slider" [calidad]="70" [ancho_muestra]="100"
+                  [alto_muestra]="41" (imagen_salida)="cambia_valor('imagen_5',$event)">
                 </app-carga-imagen>
               </td>
             </tr>
             <tr>
               <td>Cuarto Slide Principal</td>
               <td>
-                <app-carga-imagen [imagen_ingreso]="angForm_2.value.imagen_6" [ancho]="ancho_imagen_slider"
-                  [alto]="alto_imagen_slider" [calidad]="70" (imagen_salida)="cambia_valor('imagen_6',$event)">
+                <app-carga-imagen class="slider" [imagen_ingreso]="angForm_2.value.imagen_6"
+                  [ancho]="ancho_imagen_slider" [formatea]="false" [alto]="alto_imagen_slider" [calidad]="70"
+                  [ancho_muestra]="100" [alto_muestra]="41" (imagen_salida)="cambia_valor('imagen_6',$event)">
                 </app-carga-imagen>
               </td>
             </tr>

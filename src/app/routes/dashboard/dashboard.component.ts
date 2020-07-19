@@ -21,6 +21,11 @@ export class DashboardComponent implements OnInit {
   public config: SwiperConfigInterface = {
     direction: 'horizontal',
     slidesPerView: 3,
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    loop: true,
     keyboard: true,
     mousewheel: true,
     scrollbar: false,

@@ -37,8 +37,10 @@
     "ag-grid-angular": "^23.2.1",
     "ag-grid-community": "^23.2.1",
     "angular-9-datatable": "^0.1.1",
+    "angular-ng-autocomplete": "^2.0.1",
     "angularx-social-login": "^2.3.1",
     "crypto-js": "^4.0.0",
+    "file-saver": "^2.0.2",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.19",
     "ng-matero": "^9.3.1",
@@ -47,10 +49,12 @@
     "ngx-progressbar": "^6.0.2",
     "ngx-swiper-wrapper": "^9.0.1",
     "ngx-toastr": "^12.0.1",
+    "ngx-typeahead": "^9.1.0",
     "photoviewer": "^3.4.0",
     "rxjs": "~6.5.4",
     "screenfull": "^4.2.1",
     "tslib": "^1.10.0",
+    "xlsx": "^0.16.4",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -80,7 +84,8 @@
     "stylelint-scss": "^3.14.2",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "webpack-bundle-analyzer": "^3.8.0"
   },
   "browser": {
     "crypto": true,

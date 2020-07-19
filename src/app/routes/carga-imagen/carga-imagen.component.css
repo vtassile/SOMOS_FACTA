@@ -29,7 +29,6 @@
   object-position: center center;
 }
 
-
 .middle {
     transition: .5s ease;
     opacity: 0;
@@ -60,4 +59,5 @@
   .container:hover .middle {
     opacity: 0.8;
   }
+
   

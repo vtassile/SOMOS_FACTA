@@ -1,0 +1,49 @@
+@import "../../colores.scss";
+@import "../../swiper.min.css";
+
+ng-autocomplete {
+  border: 15px;
+}
+
+.swiper-container {
+  height: 80%;
+  width: 80%;
+  margin: auto;
+}
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+}
+.encabezado{
+  background-color: $main-claro-propio;
+ text-align: center;
+}
+
+.texto_encabezado{
+  color: #fff;
+}
+
+.maqueta{
+  background-color: #fff;
+}
+
+.imagen{
+  height: 100px!important;
+  width: auto;
+}
+
+.diapositiva{
+  margin-top: 15px;;
+}
+
+.dia_fecha{
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: large;
+}
+
+._menu{
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-size: large;
+}

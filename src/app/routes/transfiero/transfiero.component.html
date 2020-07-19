@@ -1,0 +1,63 @@
+<div class="card form_vt1 col-12">
+  <notifier-container></notifier-container>
+  <div class="card-body tarjeta2">
+    <form [formGroup]="angForm_2" (ngSubmit)="addPago()">
+
+      <div class="form-content">
+        <div class="tarjeta2">
+
+          <div *ngIf="query3!=''">
+
+            <div class="ng-autocomplete tarjeta_hijo2">
+              <ng-autocomplete [data]="data_11" (selected)='selectEvent($event)' [searchKeyword]="keyword" placeHolder="Le quiero prestar a"
+                [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+              </ng-autocomplete>
+
+              <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.s_username"></a>
+              </ng-template>
+
+              <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+              </ng-template>
+            </div>
+            <br>
+            <div *ngIf="nombre!=''">
+              <div class="tarjeta_hijo2 saldo ">
+                <h6>{{this.nombre}} &nbsp; {{this.apellido}}</h6>
+            </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label>Importe</label>
+          <input type="number" #importe_d formControlName="importe_d" class="form-control input-underline input-lg"
+            required>
+          <div *ngIf="angForm_2.get('importe_d').errors && angForm_2.get('importe_d').dirty">
+            <p *ngIf>"angForm_2.get('importe_d').hasError('required')">Campo Requerido </p>
+            <p *ngIf>"angForm_2.get('importe_d').hasError('minlength')">Minimo 2 digitos</p>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" #contrasena formControlName="contrasena" class="form-control input-underline input-lg"
+            required>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <button [disabled]="permite==false" type="submit" style="margin: 10px 2px 2px 0px"
+          class="btn btn-warning ">Confirmar </button>
+        &nbsp;
+        <a [routerLink]="['/dashboard']" style="margin: 10px 2px 2px 0px" class="btn btn-primary ">Cancelar</a>
+      </div>
+
+    </form>
+  </div>
+</div>

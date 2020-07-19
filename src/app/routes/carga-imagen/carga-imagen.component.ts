@@ -15,10 +15,12 @@ import { CLAVES } from "@shared";
 export class CargaImagenComponent implements OnInit {
 
   @Input("imagen_ingreso") imagen_ingreso: string;
-  @Input("ancho") ancho:number;
-  @Input("alto") alto:number;
+  @Input("ancho") ancho:number=100;
+  @Input("alto") alto:number=100;
+  @Input("ancho_muestra") ancho_muestra:number=this.ancho;
+  @Input("alto_muestra") alto_muestra:number=this.alto;
   @Input("calidad") calidad:number;
-  
+  @Input("formatea") formatea:boolean=true;
 
   @Output() imagen_salida = new EventEmitter<string>();
   public imagen = "assets/images/sonriente.jpg";

@@ -13,8 +13,8 @@
       "icon": "restaurant",
       "nivel":1,
       "children": [{
-          "route": "requests",
-          "name": "requests",
+          "route": "reserva",
+          "name": "requestso",
           "type": "link",
           "nivel":1
         },         
@@ -25,7 +25,7 @@
           "nivel":1
         },
         {
-          "route": "menu_proposals",
+          "route": "reserva",
           "name": "menu_proposals",
           "type": "link",
           "nivel":2
@@ -50,6 +50,13 @@
           "nivel":3
         }
       ]
+    },
+    {
+      "route": "reserva",
+      "name": "requests",
+      "type": "link",
+      "icon": "emoji_people",
+      "nivel":3
     },
     {
       "route": "tusuario",

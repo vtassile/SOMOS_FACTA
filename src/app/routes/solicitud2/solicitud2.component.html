@@ -1,0 +1,68 @@
+<mat-card-header class="encabezado" fxLayoutAlign="center center">
+  <h4 class="texto_encabezado" *ngIf="cuenta">Saldo Disponible:&nbsp; {{cuenta.Saldo}}</h4>
+  <h4 class="texto_encabezado" *ngIf="cuenta == null">Saldo Disponible:&nbsp; 0</h4>
+</mat-card-header>
+
+<mat-card-content class="maqueta">
+  <form [formGroup]="angForm_2">
+
+    <div class="swiper-container " [swiper]="config" (indexChange)="onIndexChange($event)">
+      <div class="swiper-wrapper ">
+        <div *ngFor="let dia of dia_sem;let indice=index" class="swiper-slide mat-elevation-z4 diapositiva">
+          <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+            <div class="card" fxLayout="column" fxLayoutAlign="center space-between">
+              <div class="dia_fecha" fxLayout="row" fxLayoutGap="25px" fxLayoutAlign="space-between center">
+                <div> {{ maqueta[indice][7] }} </div>
+                <div> {{ maqueta[indice][0] }} </div>
+              </div>
+
+              <div *ngIf="maqueta[indice][1] == '2'">
+                <div *ngIf="permite" >
+                  <select formControlName="codi_menu" #t (change)="callType(indice,t.value)">
+                    <option *ngFor="let aparece of this.obt_m1[indice];let indice2=index" >
+                      {{ aparece }} </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="_menu" *ngIf="maqueta[indice][1] != '2'" fxLayoutAlign="center center">
+                <div> {{ maqueta[indice][2] }} </div>
+              </div>
+              <div class="_menu" *ngIf="maqueta[indice][1] != '1'" fxLayoutAlign="center center">
+                <div> {{ maqueta[indice][4] }} </div>
+              </div>
+
+              <img class="imagen" mat-card-image src="{{maqueta[indice][3]}}" alt="Menu" />
+
+              <div *ngIf="maqueta[indice][1] == '2'">
+                <div >
+                  <button type="submit" (click)="paga(indice)" >
+                    Abonar
+                  </button>
+                </div>
+                <p></p>
+                <div >
+                  <button type="button" >
+                    Costo &nbsp;<span >{{
+                      importe00
+                    }}</span>
+                  </button>
+                  <button type="button" >
+                    Cantidad &nbsp;<span >{{
+                      m_viandas
+                    }}</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-scrollbar" [hidden]="config.scrollbar === false"></div>
+      <div class="swiper-pagination" [hidden]="config.pagination === false"></div>
+      <div class="swiper-button-prev" [hidden]="config.navigation === false"></div>
+      <div class="swiper-button-next" [hidden]="config.navigation === false"></div>
+    </div>
+  </form>
+</mat-card-content>

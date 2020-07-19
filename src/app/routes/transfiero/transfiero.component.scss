@@ -1,0 +1,65 @@
+$topnav-background-color: #F0F8FF;
+
+.form_vt1{
+	background: $topnav-background-color;	
+}
+
+
+
+/deep/ .small-video {
+    max-height: 20vh;
+    width: 10vw;
+    object-fit: contain;
+}
+
+.recuadro{
+	background: #FF9700;
+    padding: 10px;	
+    margin-bottom: 20px ;	
+}
+
+.card-header .card-body{
+	padding: 0px;	
+    margin: 0px ;		
+}
+
+.saldo{
+	-webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+
+	border-radius: 50px 50px 50px 50px;
+	-moz-border-radius: 50px 50px 50px 50px;
+	-webkit-border-radius: 50px 50px 50px 50px;
+	border: 0px solid #000000;
+
+	background: #FF1C19;
+    padding: 10px;	
+	margin-bottom: 20px ;	
+	text-align: center;
+}
+
+.ng-autocomplete {
+	max-width: 200px;
+
+  }
+  
+  .tarjeta {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+  }
+  
+  .tarjeta2 {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+  }
+  
+  .tarjeta_hijo {
+	align-self: center;
+  }
+  
+  .tarjeta_hijo2 {
+	align-self: flex-end;
+  }

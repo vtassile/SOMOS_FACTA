@@ -17,6 +17,8 @@ export class ConfiguraConfiguraComponent implements OnInit {
   public angForm_2: FormGroup;
   public ancho_imagen = 100;
   public alto_imagen = 100;
+  public ancho_avatar = 100;
+  public alto_avatar = 100;
   public calidad_imagen=70;
   public ancho_imagen_slider = 480;
   public alto_imagen_slider = 200;

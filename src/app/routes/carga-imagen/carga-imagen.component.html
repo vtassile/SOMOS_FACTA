@@ -1,16 +1,17 @@
 <div class="maestro">
   <div *ngIf="!imagen">
-    <input type=image src="assets/images/sonriente.jpg" (click)="fileInput.click()" class="usuario_imagen">
+    <input type=image src="assets/images/sonriente.jpg" (click)="fileInput.click()" class="usuario_imagen"
+    [style.max-height.px]="alto_muestra" [style.max-width.px]="ancho_muestra">
   </div>
   <div *ngIf="imagen">
     <div class="container">
       <div *ngIf="formatea">
         <input type=image src="{{imagen}}" (click)="fileInput.click()" class="usuario_imagen"
-          [style.max-height.px]="ancho" [style.max-width.px]="alto">
+          [style.max-height.px]="_muestra" [style.max-width.px]="ancho_muestra">
       </div>
       <div *ngIf="!formatea">
         <input type=image src="{{imagen}}" (click)="fileInput.click()" class="usuario_imagen2"
-          [style.max-height.px]="ancho" [style.max-width.px]="alto">
+          [style.max-height.px]="alto_muestra" [style.max-width.px]="ancho_muestra">
       </div>
       <div class="text middle" (click)="fileInput.click()">
         Cambiar

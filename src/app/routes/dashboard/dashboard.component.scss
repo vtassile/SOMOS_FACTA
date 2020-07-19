@@ -116,7 +116,7 @@
   height: 150px;
 }
 
-@media (max-width: 375px) {
+@media (max-width: 450px) {
   .texto_pie {
     margin: 10px;
     font-size: small;
@@ -129,15 +129,17 @@
     font-size: small;
     text-align: center;
   }
-
   .etiqueta {
     color: #fff;
     font-size: small;
     font-weight: bold;
   }
-
   .blanco {
     color: white;
     font-size: small;
+  }
+  .servicios {
+    max-width: 150px;
+    text-align: center;
   }
 }

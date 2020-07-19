@@ -7,7 +7,7 @@
             <mat-card-title>
                 <div>
                     <app-carga-imagen *ngIf="leido" [imagen_ingreso]="angForm_2.value.s_imagen" [ancho]="ancho_imagen"
-                        [alto]="alto_imagen" [calidad]="calidad_imagen"
+                        [alto]="alto_imagen" [calidad]="calidad_imagen" [ancho_muestra]="100" [alto_muestra]="100"
                         (imagen_salida)="cambia_valor('s_imagen',$event)">
                     </app-carga-imagen>
 

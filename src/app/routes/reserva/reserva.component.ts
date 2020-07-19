@@ -35,8 +35,7 @@ export class ReservaComponent implements OnInit {
 
   displayedColumns: string[]= ['f_fecha','n_menu.s_detmenu','n_cantidad','importe','consumido', 'actions'];
   currentScreenWidth: string = '';
-  flexMediaWatcher: Subscription;
-
+  
   public identity;
   public token;
   public rol;
@@ -92,7 +91,6 @@ export class ReservaComponent implements OnInit {
       .subscribe((data2: Reserva[]) => { 
         this.reservas = new MatTableDataSource(data2);
         this.reservas.paginator = this.paginator;
-        console.log(this.reservas);
       });
 
     this.tmovservice
@@ -141,7 +139,6 @@ export class ReservaComponent implements OnInit {
     this.reservaservice.delete(id)
       .subscribe(res => {
         alert("El Movimiento se Eliminó con Exito");
-        console.log('Deleted');
         this.reservaservice
           .get_filtro(this.identity._id)
           .subscribe((data2: Reserva[]) => { this.reservas = data2; });

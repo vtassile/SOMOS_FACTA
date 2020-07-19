@@ -61,7 +61,7 @@
                 </mat-card>
 
                 <mat-card>
-                    <mat-select  formControlName="clase">
+                    <mat-select formControlName="clase">
                         <mat-option *ngFor="let userclase of userclases" [value]="userclase._id">
                             {{userclase.s_detalle}}
                         </mat-option>
@@ -133,7 +133,6 @@
             </mat-card-content>
 
         </form>
-
 
     </mat-card>
 </div>

@@ -9,7 +9,8 @@
     <ng-container matColumnDef="edita">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let element" class="action-link">
-        <button mat-icon-button color="primary" aria-label="Editar" (click)="modifica(element)">
+        <button mat-icon-button color="primary"     matTooltip="Edita"
+        (click)="modifica(element)">
           <mat-icon>edit</mat-icon>
         </button>
       </mat-cell>
@@ -41,10 +42,12 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
       <mat-cell *matCellDef="let element" class="action-link">
-        <button mat-icon-button class="boton" color="primary" aria-label="Resetear" (click)="resetea(element)">
+        <button mat-icon-button class="boton" color="primary"     matTooltip="Resetea Clave"
+        (click)="resetea(element)">
           <mat-icon>feedback</mat-icon>
         </button>
-        <button mat-icon-button class="boton" color="warn" aria-label="Borrar" (click)="delete(element)">
+        <button mat-icon-button class="boton" color="warn"     matTooltip="Borra"
+        (click)="delete(element)">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-cell>

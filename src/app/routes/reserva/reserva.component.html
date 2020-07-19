@@ -11,7 +11,7 @@
   <mat-tab label="Historia">
     <div *ngIf="data_11" class="col-4 text-center ng-autocomplete" fxLayout="row" fxLayoutAlign="center center">
       <ng-autocomplete [data]="data_11 " (selected)='selectEvent($event)' [searchKeyword]="keyword"
-        placeHolder="Ingrese Usuario" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+        placeHolder="Ingrese Usuario" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" style="display:none">
       </ng-autocomplete>
       <ng-template #itemTemplate let-item>
         <a [innerHTML]="item.s_username"></a>
@@ -62,7 +62,8 @@
         <ng-container matColumnDef="actions">
           <mat-header-cell *matHeaderCellDef> </mat-header-cell>
           <mat-cell *matCellDef="let element" class="action-link">
-            <button mat-icon-button class="boton" color="warn" aria-label="Borrar" (click)="delete(element)">
+            <button mat-icon-button class="boton" color="warn"     matTooltip="Borra"
+            (click)="delete(element)">
               <mat-icon>delete</mat-icon>
             </button>
           </mat-cell>

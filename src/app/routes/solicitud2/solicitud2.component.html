@@ -3,6 +3,8 @@
   <h4 class="texto_encabezado" *ngIf="cuenta == null">Saldo Disponible:&nbsp; 0</h4>
 </mat-card-header>
 
+<button mat-raised-button class="boton" color="primary" (click)="consulta()"  style="display:none">Consulta</button>
+
 <mat-card-content class="maqueta">
   <form [formGroup]="angForm_2">
 

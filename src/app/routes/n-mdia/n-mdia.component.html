@@ -1,0 +1,53 @@
+<page-header></page-header>
+
+<mat-card *ngIf="tmenus" class="mat-elevation-z4 m-b-0 tarjeta">
+  <form class="form-field-full" [formGroup]="angForm_2">
+    <mat-card-title>
+      <div>
+        <app-carga-imagen *ngIf="tmenus" [imagen_ingreso]="angForm_2.value.s_imagen" [ancho]="ancho_imagen"
+          [alto]="alto_imagen" [calidad]="calidad_imagen" [ancho_muestra]="400" [alto_muestra]="100" [formatea]="false" 
+          (imagen_salida)="cambia_valor('s_imagen',$event)">
+        </app-carga-imagen>
+      </div>
+    </mat-card-title>
+
+    <mat-card-content>
+      <mat-form-field col-md-6 appearance="outline">
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="f_fecha" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-card>
+        <mat-select formControlName="tmenu">
+          <mat-option *ngFor="let tmenu of tmenus" [value]="tmenu._id">
+            {{tmenu.s_detalle}}
+          </mat-option>
+        </mat-select>
+      </mat-card>
+
+      <mat-form-field col-md-6 appearance="outline">
+        <mat-label>Detalle</mat-label>
+        <input matInput placeholder="Ingrese Detalle" formControlName="s_detmenu" required>
+        <mat-error *ngIf="angForm_2.get('s_detmenu').invalid && angForm_2.get('s_detmenu').dirty">Ingrese
+          Detalle
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field col-md-6 appearance="outline">
+        <mat-label>Cupo</mat-label>
+        <input type="number" matInput placeholder="Ingrese Cupo" formControlName="n_cupo" required>
+        <mat-error *ngIf="angForm_2.get('n_cupo').invalid && angForm_2.get('n_cupo').dirty">Ingrese
+          Cupo
+        </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card fxLayoutGap="5px" fxLayout="row " fxLayoutAlign="space-around space-around ">
+      <button mat-raised-button class="boton" color="primary" (click)="add($event)">Confirmar</button>
+      <button mat-raised-button class="boton" color="warn" [routerLink]="['/']">Cancelar</button>
+  </mat-card>
+  </form>
+
+
+</mat-card>

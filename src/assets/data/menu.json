@@ -7,6 +7,13 @@
       "nivel":1
     },
     {
+      "route": "my_QR",
+      "name": "my_QR",
+      "type": "link",
+      "icon": "fingerprint",
+      "nivel":1
+    },
+    {
       "route": "dinning_room",
       "name": "dinning_room",
       "type": "sub",
@@ -14,18 +21,12 @@
       "nivel":1,
       "children": [{
           "route": "reserva",
-          "name": "requestso",
+          "name": "requests",
           "type": "link",
           "nivel":1
         },         
         {
-          "route": "my_QR",
-          "name": "my_QR",
-          "type": "link",
-          "nivel":1
-        },
-        {
-          "route": "reserva",
+          "route": "mdia",
           "name": "menu_proposals",
           "type": "link",
           "nivel":2
@@ -50,13 +51,6 @@
           "nivel":3
         }
       ]
-    },
-    {
-      "route": "reserva",
-      "name": "requests",
-      "type": "link",
-      "icon": "emoji_people",
-      "nivel":3
     },
     {
       "route": "tusuario",

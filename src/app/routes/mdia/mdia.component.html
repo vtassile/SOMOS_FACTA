@@ -1,0 +1,81 @@
+<page-header></page-header>
+
+  <div fxLayoutAlign="end end">
+    <button mat-fab color="accent" 
+    matTooltip="Agrega Menú" (click)="add()"
+    >
+      <mat-icon>plus_one</mat-icon>
+    </button>
+  </div>
+  
+  <mat-card-content class="tabla">
+    <mat-table *ngIf="data" [dataSource]="data" class="mat-elevation-z8 " fxLayoutGap="5px" matSort>
+  
+      <ng-container matColumnDef="edita">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="action-link">
+          <button mat-icon-button color="primary"     matTooltip="Edita"
+          (click)="modifica(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container class="tama_cell" matColumnDef="f_fecha">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.f_fecha | date: "dd/MM"}} </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="tmenu.s_detalle">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Tradicional</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div *ngIf="element.tmenu._id == '5c7ecf9067b85606d59bbde3'">
+            <mat-checkbox [checked]="true" [disabled]="true">
+            </mat-checkbox>
+          </div>
+          <div *ngIf="element.tmenu._id != '5c7ecf9067b85606d59bbde3'">
+            <mat-checkbox [checked]="false" [disabled]="true">
+            </mat-checkbox>
+          </div>
+        </mat-cell>
+      </ng-container>
+  
+      <ng-container matColumnDef="s_detmenu">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Menu </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.s_detmenu}} </mat-cell>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="imagen">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Imagen</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div *ngIf="element.s_imagen">
+            <mat-checkbox [checked]="true" [disabled]="true">
+            </mat-checkbox>
+          </div>
+          <div *ngIf="!element.s_imagen">
+            <mat-checkbox [checked]="false" [disabled]="true">
+            </mat-checkbox>
+          </div>
+        </mat-cell>
+      </ng-container>
+  
+  
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="action-link">
+          <button mat-icon-button class="boton"     matTooltip="Borra"
+          color="warn" aria-label="Borrar" (click)="delete(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  
+  </mat-card-content>
+

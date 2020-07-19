@@ -323,8 +323,10 @@ export class Solicitud2Component implements OnInit {
     this.cambia_d(desplaza2);
   }
 
+  consulta(){
+    console.log(this.maqueta);
+  }
   cambia_f() {
-
     this.mdias_f = this.obt_menu(
       this.angForm_2.value.fecha_solicitud,
       this.angForm_2.value.tmenu

@@ -47,3 +47,35 @@ ng-autocomplete {
   margin-bottom: 10px;
   font-size: large;
 }
+
+.text {
+  background-color: #3F51B5;
+    padding: 5px 10px;
+    border-radius: 20%;
+    color:white;
+  }
+
+  
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.image:hover {
+  opacity: 0.3;
+}
+
+
+.container:hover .middle {
+  opacity: 0.8;
+}

@@ -9,6 +9,7 @@ import { TMenu } from '@shared';
 
 import { MDiaService } from '@shared/services/mdia.service';
 import { TMenuService } from '@shared/services/tmenu.service';
+import { SesionService } from "@shared/services/sesion.service";
 
 @Component({
   selector: 'app-n-mdia',
@@ -22,10 +23,10 @@ export class NMDiaComponent implements OnInit {
   tmenus: TMenu[];
   mdias: MDia[];
   public ancho_imagen=400;
-  public alto_imagen=100;
+  public alto_imagen=200;
   public calidad_imagen=70;
 
-  constructor(public router: Router, private mdiaservice: MDiaService,
+  constructor(public router: Router, private mdiaservice: MDiaService,private _sesionService: SesionService,
     private tmenuservice: TMenuService, private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -55,7 +56,8 @@ export class NMDiaComponent implements OnInit {
 
   add(event: Event) {
     event.preventDefault();
-    console.log(this.angForm_2.value);
+    var fecha_corta=this._sesionService.fecha_corta(this.angForm_2.value.f_fecha);
+    this.angForm_2.get("f_fecha").setValue(fecha_corta);
     this.mdiaservice.add(this.angForm_2.value);
     this.router.navigate([" "]);
   }

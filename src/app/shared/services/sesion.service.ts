@@ -130,6 +130,80 @@ export class SesionService {
     return this._http.get(this.url + "/fecha", options);
   }
 
+  d_semana(fecha_a) {
+    //   var fecha_a = this.angForm_2.value.fecha_solicitud;
+       var dia1 = fecha_a.substr(8, 2);
+       var mes1 = fecha_a.substr(5, 2);
+       var anyo1 = fecha_a.substr(0, 4);
+       var nuevafecha = new Date(anyo1 + "," + mes1 + "," + dia1);
+       var diasSemana = new Array(
+         "Domingo",
+         "Lunes",
+         "Martes",
+         "Miercoles",
+         "Jueves",
+         "Viernes",
+         "Sabado"
+       );
+       return diasSemana[nuevafecha.getDay()];
+     }
+   
+     n_semana(fecha_a) {
+       //   var fecha_a = this.angForm_2.value.fecha_solicitud;
+          var dia1 = fecha_a.substr(8, 2);
+          var mes1 = fecha_a.substr(5, 2);
+          var anyo1 = fecha_a.substr(0, 4);
+          var nuevafecha = new Date(anyo1 + "," + mes1 + "," + dia1);
+          return nuevafecha.getDay();
+        }
+   
+     fecha_formateada(fecha_a) {
+       var dia1 = fecha_a.substr(8, 2);
+       var mes1 = fecha_a.substr(5, 2);
+       var anyo1 = fecha_a.substr(0, 4);
+       var nuevafecha = dia1 + "-" + mes1 + "-" + anyo1;
+       return nuevafecha;
+     }
+   
+     fecha_corta(fecha_a) {
+        var nuevafecha=(fecha_a.format("YYYY-MM-DD")).toString();
+
+      return nuevafecha;
+    }
+
+     cambia_fecha(fecha_a,dias) {
+       var dia1 = fecha_a.substr(8, 2);
+       var mes1 = fecha_a.substr(5, 2);
+       var anyo1 = fecha_a.substr(0, 4);
+       var nuevafecha = new Date(anyo1 + "," + mes1 + "," + dia1);
+       // Sumamos los dias a la fecha
+       nuevafecha.setDate(nuevafecha.getDate() + dias);
+       // Obtenemos el dia, mes y año de la fecha de devolucion
+       var dia2 = nuevafecha.getDate();
+       var mes2 = nuevafecha.getMonth() + 1;
+       var anio2 = nuevafecha.getFullYear();
+       var dia3 = "";
+       var mes3 = "";
+       if (dia2 < 10) {
+         dia3 = "0" + dia2.toString();
+       } else {
+         dia3 = dia2.toString();
+       }
+       if (mes2 < 10) {
+         mes3 = "0" + mes2.toString();
+       } else {
+         mes3 = mes2.toString();
+       }
+       var nuevafecha2 = anio2.toString() + "-" + mes3 + "-" + dia3;
+      return nuevafecha2;
+     }
+   
+
+
+
+
+
+
 
 }
 

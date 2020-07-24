@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, ViewChild } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit, ViewChild, Input } from "@angular/core";
 import { Router } from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -35,7 +35,12 @@ import {
 })
 
 export class Solicitud2Component implements OnInit {
-  @Output() messageEvent = new EventEmitter<string>();
+
+
+  @Input('usuario') usuario: any;
+
+  @Output()
+  propaga_todo = new EventEmitter<string>();
 
   public config: SwiperConfigInterface = {
     effect: 'flip',
@@ -89,8 +94,7 @@ export class Solicitud2Component implements OnInit {
   public identity;  // identidad del agente
   public token;  // token valido del agente
   public rol;   // rol del agente
-  public usuario; // usuario del servicio
-
+  
   public fecha_servidor;   /// fecha de servidor
   public prefiere;  // preferencia de menu del agente
   public cuenta;   // cuenta monetaria del agente
@@ -134,8 +138,7 @@ export class Solicitud2Component implements OnInit {
       this.identity = this._sesionService.getIdentity();
       this.rol = parseInt(this.identity.rol.n_nivel);
       this.token = this._sesionService.getToken();
-
-      this.usuario=this.identity._id;
+      
       this.importe = this.identity.clase.importe;
       this.importe00 = this.importe;
       this.prefiere = this.identity.tmenu._id;
@@ -154,7 +157,7 @@ export class Solicitud2Component implements OnInit {
             this.mdias = data3.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem);
             // this.mdias = data3;
             this.reservaservice
-              .get_filtro(this.identity._id)
+              .get_filtro(this.usuario)
               .subscribe((data4: Reserva[]) => {
                 this.reservas = data4.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem)   
        //         this.reservas=data4;
@@ -167,10 +170,10 @@ export class Solicitud2Component implements OnInit {
                   .subscribe((data5) => {
                     this.posible = data5;
                     this.moneyservice
-                      .get_filtro(this.identity._id)
+                      .get_filtro(this.usuario)
                       .subscribe((data2: Money[]) => {
                         this.money = data2;
-                         this.obt_saldo(this.identity._id);
+                         this.obt_saldo(this.usuario);
                         this.tmovservice.get().subscribe((data2: TMov[]) => {
                           this.tmovs = data2;
                           this.maqueta = this.maqueta_fecha(this.maqueta);
@@ -348,7 +351,6 @@ export class Solicitud2Component implements OnInit {
     }
   }
 
-  
   paga_vianda(dia_x) {
     var dia = dia_x.substr(0, 2);
     var mes = dia_x.substr(3, 2);
@@ -362,10 +364,11 @@ export class Solicitud2Component implements OnInit {
     };
     this.moneyservice.add(datos00).subscribe((res) => {
       this.moneyservice
-        .get_filtro(this.identity._id)
+        .get_filtro(this.usuario)
         .subscribe((data2: Money[]) => {
           this.money = data2;
           this.obt_saldo(this.usuario);
+          this.propaga_todo.emit("solicita");
         });
     });
   }

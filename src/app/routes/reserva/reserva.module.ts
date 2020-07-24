@@ -6,6 +6,8 @@ import { CargaImagenModule } from "../carga-imagen/carga-imagen.module";
 import { ReservaRoutingModule } from "./reserva-routing.module";
 import { ReservaComponent } from "./reserva.component";
 import { Solicitud2Module } from "../solicitud2/solicitud2.module";
+import { CuentaComponent } from './cuenta/cuenta.component';
+import { HistoricoComponent } from './historico/historico.component';
 //import { TransfieroModule } from "../transfiero/transfiero.module";
 
 const COMPONENTS = [ReservaComponent];
@@ -23,7 +25,9 @@ const COMPONENTS_DYNAMIC = [];
   ],
   declarations: [
     ...COMPONENTS,
-    ...COMPONENTS_DYNAMIC
+    ...COMPONENTS_DYNAMIC,
+    CuentaComponent,
+    HistoricoComponent
   ],
   entryComponents: COMPONENTS_DYNAMIC
 })

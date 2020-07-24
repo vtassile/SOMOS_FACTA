@@ -1,0 +1,32 @@
+<mat-card-content>
+    <mat-table *ngIf="moneys" [dataSource]="moneys" class="mat-elevation-z8 " fxLayoutGap="5px" matSort>
+        <ng-container class="fecha" matColumnDef="f_fecha">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.f_fecha | date: "dd/MM"}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="detalle">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Detalle </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.detalle}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="importe_d">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Debe </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.importe_d}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="importe_h">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Haber </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.importe_h}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="action-link">
+                <button mat-icon-button class="boton" color="warn" matTooltip="Borra" (click)="delete_m(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</mat-card-content>

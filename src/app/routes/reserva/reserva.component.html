@@ -1,82 +1,41 @@
 <page-header></page-header>
+
+<mat-card-header class="encabezado" fxLayoutGap="10px" fxLayoutAlign="center center" fxLayout.md="column">
+  <div *ngIf="data_11 && rol>2" class="ng-autocomplete" fxLayout="row" fxLayoutAlign="center center">
+    <ng-autocomplete [data]="data_11 " (selected)='selectEvent($event)' [searchKeyword]="keyword"
+      placeHolder="Ingrese Usuario" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.s_username"></a>
+    </ng-template>
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+    </ng-template>
+  </div>
+  <h4 *ngIf="usuario && rol>2" class="texto_encabezado">{{usuario.s_name}}&nbsp;{{usuario.s_surname}}</h4>
+  <h4 *ngIf="cuenta" class="texto_encabezado">Saldo Disponible:&nbsp; {{cuenta.Saldo}}</h4>
+</mat-card-header>
+
 <mat-tab-group class="reserva">
   <mat-tab label="Pedido">
     <br>
-    <mat-card  >
-        <app-solicitud2 (messageEvent)="receiveMessage($event)"></app-solicitud2>
+    <mat-card>
+      <app-solicitud2 *ngIf="usuario" [usuario]="usuario" (propaga_todo)="actualiza_todo($event)"></app-solicitud2>
     </mat-card>
-
   </mat-tab>
 
   <mat-tab label="Historia">
-    <div *ngIf="data_11" class="col-4 text-center ng-autocomplete" fxLayout="row" fxLayoutAlign="center center">
-      <ng-autocomplete [data]="data_11 " (selected)='selectEvent($event)' [searchKeyword]="keyword"
-        placeHolder="Ingrese Usuario" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" style="display:none">
-      </ng-autocomplete>
-      <ng-template #itemTemplate let-item>
-        <a [innerHTML]="item.s_username"></a>
-      </ng-template>
-      <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
-      </ng-template>
-    </div>
-    <mat-card-content>
-      <mat-table *ngIf="reservas" [dataSource]="reservas" class="mat-elevation-z8 " fxLayoutGap="5px" matSort>
-        <ng-container class="tama_cell" matColumnDef="f_fecha">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </mat-header-cell>
-          <mat-cell *matCellDef="let element" > {{element.f_fecha | date: "dd/MM"}} </mat-cell>
-        </ng-container>
 
-        <ng-container matColumnDef="n_menu.s_detmenu">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let element" fxLayoutGap="5px">
-            <img *ngIf="element.n_menu.s_imagen" [src]="element.n_menu.s_imagen" />
+    <app-historico *ngIf="usuario" [usuario]="usuario" (propaga_reserva)="actualiza_reserva($event)"></app-historico>
 
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="n_cantidad">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Nro </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.n_cantidad}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="importe">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Costo </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.importe}} </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="consumido">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Retiro </mat-header-cell>
-
-          <mat-cell *matCellDef="let element">
-            <div *ngIf="element.consumido== 'Si'">
-              <mat-checkbox [checked]="true" [disabled]="true">
-              </mat-checkbox>
-            </div>
-            <div *ngIf="element.consumido== 'No'">
-              <mat-checkbox [checked]="false" [disabled]="true">
-              </mat-checkbox>
-            </div>
-
-          </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef> </mat-header-cell>
-          <mat-cell *matCellDef="let element" class="action-link">
-            <button mat-icon-button class="boton" color="warn"     matTooltip="Borra"
-            (click)="delete(element)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
-    </mat-card-content>
   </mat-tab>
+
+  <mat-tab label="Cuenta">
+    <app-cuenta *ngIf="usuario" [usuario]="usuario" (propaga_money)="actualiza_money($event)"></app-cuenta>
+
+  </mat-tab>
+
+
   <mat-tab label="Presto">
   </mat-tab>
 </mat-tab-group>

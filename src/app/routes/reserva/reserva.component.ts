@@ -9,14 +9,14 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { Observable, Subscription } from "rxjs";
 
-import {MDiaService} from "@shared/services/mdia.service";
-import {TMenuService} from "@shared/services/tmenu.service";
-import {TMovService} from "@shared/services/tmov.service";
-import {MoneyService} from "@shared/services/money.service";
-import {ExcelService} from "@shared/services/excel.service";
-import {ReservaService} from "@shared/services/reserva.service";
-import {UserService } from "@shared/services/user.service";
-import {SesionService  } from "@shared/services/sesion.service";
+import { MDiaService } from "@shared/services/mdia.service";
+import { TMenuService } from "@shared/services/tmenu.service";
+import { TMovService } from "@shared/services/tmov.service";
+import { MoneyService } from "@shared/services/money.service";
+import { ExcelService } from "@shared/services/excel.service";
+import { ReservaService } from "@shared/services/reserva.service";
+import { UserService } from "@shared/services/user.service";
+import { SesionService } from "@shared/services/sesion.service";
 
 import { User } from "@shared";
 import { MDia } from '@shared';
@@ -33,27 +33,24 @@ import { Money } from '@shared';
 
 export class ReservaComponent implements OnInit {
 
-  displayedColumns: string[]= ['f_fecha','n_menu.s_detmenu','n_cantidad','importe','consumido', 'actions'];
   currentScreenWidth: string = '';
-  
+
   public identity;
   public token;
   public rol;
   public mensaje;
   data_11: User[];
   keyword = 's_username';
+  public usuario;
 
   public fecha_servidor;
   agente: any = {};
-  angForm_2: FormGroup;
   tmenus: TMenu[];
   mdias: MDia[];
   tmovs: TMov[];
-  reservas =null;
+  reservas = null;
   moneys: Money[];
   cuenta: any = {};
-     
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(public router: Router, private mdiaservice: MDiaService,
     private tmenuservice: TMenuService,
@@ -71,9 +68,8 @@ export class ReservaComponent implements OnInit {
       this.identity = this._sesionService.getIdentity();
       this.rol = parseInt(this.identity.rol.n_nivel);
       this.token = this._sesionService.getToken();
-
+      this.usuario = this.identity;
     }
-    this.mensaje = "Esta Pasando Perfecto";
 
     this._sesionService
       .fecha_servidor()
@@ -83,16 +79,13 @@ export class ReservaComponent implements OnInit {
       .get()
       .subscribe((data: User[]) => {
         this.data_11 = data;
-
+        //      console.log(this.data_11);
       });
 
     this.reservaservice
-      .get_filtro(this.identity._id)
-      .subscribe((data2: Reserva[]) => { 
-        this.reservas = new MatTableDataSource(data2);
-        this.reservas.paginator = this.paginator;
-        console.log("Reservas de reserva.component");
-        console.log(this.reservas);
+      .get_filtro(this.usuario._id)
+      .subscribe((data2: Reserva[]) => {
+        this.reservas = data2;
       });
 
     this.tmovservice
@@ -103,31 +96,16 @@ export class ReservaComponent implements OnInit {
       .get()
       .subscribe((data: TMenu[]) => {
         this.tmenus = data;
-        this.angForm_2 = this.fb.group({
-          f_fecha: "",
-          tmenu: this.tmenus[0]._id,
-          s_detmenu: "",
-          n_cupo: ""
-        });
       });
-
-    this.angForm_2 = this.fb.group({
-      f_fecha: "",
-      tmenu: "",
-      s_detmenu: "",
-      n_cupo: ""
-    });
 
     this.moneyservice
-      .get_filtro(this.identity._id)
+      .get_filtro(this.usuario._id)
       .subscribe((data2: Money[]) => {
         this.moneys = data2;
-        this.obt_saldo(this.identity._id);
+        this.obt_saldo(this.usuario._id);
       });
 
-
   }
-
 
   obt_saldo(comensal) {
     return this.moneyservice
@@ -137,44 +115,31 @@ export class ReservaComponent implements OnInit {
       });
   }
 
-  delete(elemento) {
-    this.reservaservice.delete(elemento._id)
-      .subscribe(res => {
-        alert("El Movimiento se Eliminó con Exito");
-        this.reservaservice
-          .get_filtro(this.identity._id)
-          .subscribe((data2: Reserva[]) => { this.reservas = data2; });
+  actualiza_money(motivo_cambio) {
+    this.obt_saldo(this.usuario._id);
+  }
+
+  actualiza_reserva(motivo_cambio) {
+    this.reservaservice
+      .get_filtro(this.usuario._id)
+      .subscribe((data2: Reserva[]) => {
+        this.reservas = data2;
       });
   }
 
-  delete_m(id) {
-    this.moneyservice.delete(id)
-      .subscribe(res => {
-        this.moneyservice
-          .get_filtro(this.identity._id)
-          .subscribe((data2: Money[]) => {
-            this.moneys = data2;
-            this.obt_saldo(this.identity._id);
-            alert("El Movimiento se Eliminó con Exito");
-          });
-      });
-  }
-
-  receiveMessage($event) {
-    if ($event = "Cambia") {
+  actualiza_todo(motivo_cambio) {
       this.reservaservice
-        .get_filtro(this.identity._id)
+        .get_filtro(this.usuario._id)
         .subscribe((data2: Reserva[]) => {
           this.reservas = data2;
 
           this.moneyservice
-            .get_filtro(this.identity._id)
+            .get_filtro(this.usuario._id)
             .subscribe((data2: Money[]) => {
               this.moneys = data2;
-              this.obt_saldo(this.identity._id);
+              this.obt_saldo(this.usuario._id);
             });
         });
-    }
   }
 
   exportAsXLSX(): void {
@@ -187,21 +152,25 @@ export class ReservaComponent implements OnInit {
 
   cambia_u(usuario) {
     var guarda = usuario;
-//    var indice = this.usuarios.indexOf(guarda);
-//    this.identity._id = this.u_id[indice];
-console.log(usuario);
+    var indice = this.data_11.filter(base => base.s_username == usuario);
+    if (indice) {
+      this.usuario = indice[0];
+      this.reservaservice
+        .get_filtro(this.usuario._id)
+        .subscribe((data2: Reserva[]) => { this.reservas = data2; });
+      this.moneyservice
+        .get_filtro(this.usuario._id)
+        .subscribe((data2: Money[]) => {
+          this.moneys = data2;
 
-    this.reservaservice
-      .get_filtro(usuario._id)
-      .subscribe((data2: Reserva[]) => { this.reservas = data2; });
-
-    this.moneyservice
-      .get_filtro(this.identity._id)
-      .subscribe((data2: Money[]) => {
-        this.moneys = data2;
-        this.obt_saldo(this.identity._id);
-      });
-
+          this.moneyservice
+            .get_saldo(this.usuario._id)
+            .subscribe((data2) => {
+              this.cuenta = data2[0];
+            });
+          this.obt_saldo(this.usuario._id);
+        });
+    }
 
   }
 

@@ -165,6 +165,18 @@ export class SesionService {
        return nuevafecha;
      }
    
+     fecha_inv_formateada(fecha_a) {
+       console.log("esto esta intrando en fecha inversa");
+       console.log(fecha_a);
+      var dia1 = fecha_a.substr(0, 2);
+      var mes1 = fecha_a.substr(3, 2);
+      var anyo1 = fecha_a.substr(6, 4);
+      var nuevafecha = anyo1 + "-" + mes1 + "-" +dia1 ;
+      return nuevafecha;
+    }
+
+
+
      fecha_corta(fecha_a) {
         var nuevafecha=(fecha_a.format("YYYY-MM-DD")).toString();
 

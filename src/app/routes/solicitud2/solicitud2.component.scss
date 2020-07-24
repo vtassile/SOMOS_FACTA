@@ -27,10 +27,6 @@ ng-autocomplete {
   background-color: #fff;
 }
 
-.imagen{
-  height: 100px!important;
-  width: auto;
-}
 
 .diapositiva{
   margin-top: 15px;;
@@ -49,13 +45,17 @@ ng-autocomplete {
 }
 
 .text {
-  background-color: #3F51B5;
+  background-color:  $main-claro-propio;
     padding: 5px 10px;
     border-radius: 20%;
     color:white;
   }
-
   
+  :host ::ng-deep .mat-form-field-wrapper{
+    margin: 0 !important;
+    padding: 0;
+  }
+
 .middle {
   transition: .5s ease;
   opacity: 0;
@@ -65,6 +65,9 @@ ng-autocomplete {
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   text-align: center;
+  opacity: 0.8;
+  width: auto;
+
 }
 
 .container:hover .image {
@@ -77,5 +80,67 @@ ng-autocomplete {
 
 
 .container:hover .middle {
+  opacity: 1;
+}
+
+.container{
+  position:relative;
+}
+.usuario_imagen {
+    -webkit-border-radius: 5%;
+    border-radius: 5%;
+    border: 2px solid #fff;
+    margin:15px;
+    opacity: 1;
+    display: block;
+    object-fit: cover;
+    object-position: center center;
+}
+
+
+.boton{
+  background-color:$main-propio;
+  color:white;
+  margin:5px;
+}
+
+.informe{
+  background-color:$acento-propio;
+  color:white; 
+  border-radius: 5%;
+  padding: 5px 10px;
   opacity: 0.8;
+}
+
+.container:hover .informe {
+  opacity: 1;
+}
+
+
+.etiqueta{
+  background-color:  white;
+  color: black;
+  border-radius: 30%;
+  width: 4px;
+}
+
+.imagen{
+  height: 130px!important;
+  width: 300px!important;
+}
+
+.muestra_menu{
+  margin-bottom: 15px;
+}
+
+@media (max-width: 450px) {
+  .text {
+    font-size: small;
+  }
+  .imagen{
+    height: 130px!important;
+    width: 190px!important;
+  }
+
+
 }

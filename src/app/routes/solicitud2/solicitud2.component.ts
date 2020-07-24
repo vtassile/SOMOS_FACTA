@@ -53,7 +53,6 @@ export class Solicitud2Component implements OnInit {
     pagination: false
   };
 
-
   private scrollbar: SwiperScrollbarInterface = {
     el: '.swiper-scrollbar',
     hide: false,
@@ -85,17 +84,20 @@ export class Solicitud2Component implements OnInit {
   public obt_m3: String[][] = [["", ""], ["", ""], ["", ""], ["", ""], ["", ""],
   ["", ""], ["", ""]];
 
-  public m_inicial: String[] = ["","","","","","",""];
+  public m_inicial: String[] = ["", "", "", "", "", "", ""];
 
   public identity;  // identidad del agente
   public token;  // token valido del agente
   public rol;   // rol del agente
+  public usuario; // usuario del servicio
 
   public fecha_servidor;   /// fecha de servidor
-  public importe;   // costo del menu para el agente
   public prefiere;  // preferencia de menu del agente
-  public cantidad = 1;  // cantidad de viandas
   public cuenta;   // cuenta monetaria del agente
+  public cantidad = 1;  // cantidad de viandas
+  public importe;   // costo del menu para el agente
+  public cantidad00 = 1;  // cantidad de viandas
+  public importe00;   // costo del menu para el agente
 
   public seteo: Seteo[];
   public tmenus: TMenu[];
@@ -110,10 +112,8 @@ export class Solicitud2Component implements OnInit {
   public i_sem;  // fecha de inicio de semana
   public f_sem;  // fecha de termino de semana
   public food; // comida seleccionada
-  
-  public permite = false;  // habilita mostrar las tarjetas
 
-  public valor_inicial="Menú Tradicional-Pollo";
+  public permite = false;  // habilita mostrar las tarjetas
 
   constructor(
     public router: Router,
@@ -135,12 +135,11 @@ export class Solicitud2Component implements OnInit {
       this.rol = parseInt(this.identity.rol.n_nivel);
       this.token = this._sesionService.getToken();
 
+      this.usuario=this.identity._id;
       this.importe = this.identity.clase.importe;
+      this.importe00 = this.importe;
       this.prefiere = this.identity.tmenu._id;
-      console.log("rol");
-      console.log(this.rol);
     }
-
     this.seteoservice.get().subscribe((data2: Seteo[]) => {
       this.seteo = data2;
       this.m_viandas = this.seteo[0].m_viandas;
@@ -149,20 +148,16 @@ export class Solicitud2Component implements OnInit {
         this.i_dia = this._sesionService.n_semana(this.fecha_servidor);
         this.i_sem = this._sesionService.cambia_fecha(this.fecha_servidor, -(this.i_dia));
         this.f_sem = this._sesionService.cambia_fecha(this.fecha_servidor, 6 - this.i_dia);
-        //    this.i_sem = "2020-03-20";
-        //    this.f_sem = "2020-03-26";
-
         this.tmenuservice.get().subscribe((data2: TMenu[]) => {
           this.tmenus = data2;
-          //      console.log("this.tmenus");
-          //    console.log(this.tmenus);
           this.mdiaservice.get().subscribe((data3: MDia[]) => {
             this.mdias = data3.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem);
             // this.mdias = data3;
             this.reservaservice
               .get_filtro(this.identity._id)
               .subscribe((data4: Reserva[]) => {
-                this.reservas = data4.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem);
+                this.reservas = data4.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem)   
+       //         this.reservas=data4;
                 this._userService
                   .c_reserva(
                     this.fecha_servidor,
@@ -175,17 +170,10 @@ export class Solicitud2Component implements OnInit {
                       .get_filtro(this.identity._id)
                       .subscribe((data2: Money[]) => {
                         this.money = data2;
-                        //                    console.log("this.money");
-                        //                  console.log(this.money);
-                        this.obt_saldo(this.identity._id);
+                         this.obt_saldo(this.identity._id);
                         this.tmovservice.get().subscribe((data2: TMov[]) => {
                           this.tmovs = data2;
-                          //                  console.log("this.tmovs");
-                          //                console.log(this.tmovs);
-
-                          // esta bandera va luego que las maquetas se arma;
                           this.maqueta = this.maqueta_fecha(this.maqueta);
-                          console.log(this.maqueta);
                           this.permite = true;
                           //                      this.arma_maquetas();
                         });
@@ -198,12 +186,12 @@ export class Solicitud2Component implements OnInit {
     });
   }  // fin de ngonInit
 
-  public getSantizeUrl(url : string) {
+  public getSantizeUrl(url: string) {
     return this.sanitizer.bypassSecurityTrustUrl(url);
-}
+  }
 
   public onIndexChange(index: number) {
-    console.log('Swiper index: ', index);
+    //  console.log('Swiper index: ', index);
   }
 
   public consulta() { }
@@ -257,8 +245,7 @@ export class Solicitud2Component implements OnInit {
           if (!menu_dia[0].s_imagen) {
             this.maqueta[i][3] = "assets/images/sin_imagen.jpg";
           }
-          console.log("puedo pedir");
-          console.log(this.puedo_pedir(i));
+
           if (this.puedo_pedir(i)) {
             // HAY MENU Y SE PUEDE PEDIR
             this.maqueta[i][1] = "2";
@@ -267,16 +254,14 @@ export class Solicitud2Component implements OnInit {
               this.maqueta[i][3] = menu_dia[0].s_imagen;
             }
             this.maqueta[i][4] = "Solicita tu Vianda";
-            this.m_inicial[i]=menu_dia[0].tmenu["s_detalle"]+ "-" + menu_dia[0].s_detmenu;
-            console.log("Menu Inicial");
-            console.log(this.m_inicial[i]);
+            this.m_inicial[i] = menu_dia[0].tmenu["s_detalle"] + "-" + menu_dia[0].s_detmenu;
+
             for (let ii = 0; ii < menu_dia.length; ii++) {
               this.obt_m1[i][ii] = menu_dia[ii].tmenu["s_detalle"];
               this.obt_m1[i][ii] = this.obt_m1[i][ii] + "-" + menu_dia[ii].s_detmenu;
               this.obt_m2[i][ii] = menu_dia[ii]._id;
               this.obt_m3[i][ii] = menu_dia[ii].s_imagen;
             }
-
           } else {
             // HAY MENU PERO NO SE PUEDE PEDIR      
             this.maqueta[i][1] = "3";
@@ -293,19 +278,16 @@ export class Solicitud2Component implements OnInit {
           this.maqueta[i][2] = "No Tenemos Menú";
           this.maqueta[i][3] = "assets/images/plato_vacio.jpg";
           this.maqueta[i][4] = "";
-
         }
-
       }
       dia = this._sesionService.cambia_fecha(dia, 1);
     }
-    console.log(this.maqueta);
     return maqueta;
   }
 
   puedo_pedir(indice) {
     var retorna = true;
-    if(this.rol<3){
+    if (this.rol < 3) {
       if (this.i_dia == indice) {
         if (this.posible.minutos_t > 0) {
           retorna = true;
@@ -318,28 +300,75 @@ export class Solicitud2Component implements OnInit {
   }
 
   paga(indice_ff1) {
-    console.log(indice_ff1);
-    console.log(this.m_inicial[indice_ff1]);
-
+    var seleccion = this.m_inicial[indice_ff1];
+    if (seleccion == "Otro-Sin Menú") {
+      alert("No Existe Menú en la Opción Elegida");
+      return;
+    } else {
+      var indicador = 0;
+      this.maqueta[indice_ff1][1] = "4";
+      this.maqueta[indice_ff1][4] = "Pasa a Retirar tu vianda";
+      var largo_i = this.obt_m1[indice_ff1].length;
+      for (let v = 0; v < largo_i; v++) {
+        if (seleccion == this.obt_m1[indice_ff1][v]) { indicador = v }
+      }
+      if (seleccion == "") { indicador = 1 }
+      this.maqueta[indice_ff1][2] = this.obt_m1[indice_ff1][indicador];
+      var _idmenu = this.obt_m2[indice_ff1][indicador];
+      // luego cambiar cantidad para hacerlo mas dinamico
+      if (this.cuenta && this.puedo_pedir(indice_ff1)) {
+        //  this.PlaySound(3);
+        var c_limite = this.cuenta.Saldo - this.importe;
+        if (c_limite < this.seteo[0].m_saldo) {
+          //   this.notifier.notify("warning", "Te excediste de tu limite");
+        } else {
+          var datos90 = {
+            usuario: this.usuario,
+            f_fecha:  this._sesionService.fecha_inv_formateada(this.maqueta[indice_ff1][0]),
+            n_menu: _idmenu,
+            n_cantidad: this.cantidad00,
+            tmov: this.tmovs[0]._id,
+            importe: this.importe00,
+            pagado: "Si",
+            consumido: "No",
+          };
+          this.reservaservice.add(datos90).subscribe((res) => {
+            this.reservaservice
+              .get_filtro(this.usuario)
+              .subscribe((data2: Reserva[]) => {
+                this.reservas = data2;
+                this.paga_vianda(this.maqueta[indice_ff1][0]);
+              });
+        });
+        }
+      } else {
+        // if (!this.cuenta)
+        // this.notifier.notify("warning", "Cargá dinero en tu cuenta");
+      }
+    }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
+  paga_vianda(dia_x) {
+    var dia = dia_x.substr(0, 2);
+    var mes = dia_x.substr(3, 2);
+    var datos00 = {
+      usuario: this.usuario,
+      f_fecha: this.fecha_servidor,
+      tmov: this.tmovs[1]._id,
+      detalle: "Vianda del " + dia + "/" + mes,
+      importe_d: 0,
+      importe_h: Number(this.importe00),
+    };
+    this.moneyservice.add(datos00).subscribe((res) => {
+      this.moneyservice
+        .get_filtro(this.identity._id)
+        .subscribe((data2: Money[]) => {
+          this.money = data2;
+          this.obt_saldo(this.usuario);
+        });
+    });
+  }
 
 
 }

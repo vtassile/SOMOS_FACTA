@@ -91,6 +91,8 @@ export class ReservaComponent implements OnInit {
       .subscribe((data2: Reserva[]) => { 
         this.reservas = new MatTableDataSource(data2);
         this.reservas.paginator = this.paginator;
+        console.log("Reservas de reserva.component");
+        console.log(this.reservas);
       });
 
     this.tmovservice
@@ -135,8 +137,8 @@ export class ReservaComponent implements OnInit {
       });
   }
 
-  delete(id) {
-    this.reservaservice.delete(id)
+  delete(elemento) {
+    this.reservaservice.delete(elemento._id)
       .subscribe(res => {
         alert("El Movimiento se Eliminó con Exito");
         this.reservaservice

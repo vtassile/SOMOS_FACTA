@@ -1,26 +1,32 @@
-
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NotifierModule } from 'angular-notifier';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-
-import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { FormsModule,ReactiveFormsModule }   from '@angular/forms';
+import { SharedModule } from '@shared/shared.module';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 import { TransfieroRoutingModule } from './transfiero-routing.module';
 import { TransfieroComponent } from './transfiero.component';
 
-import { UserService } from "@app/service/user.service";
-import { MoneyService } from '@app/service/money.service';
-import { TMovService } from '@app/service/tmov.service';
+import { UserService } from "@shared/services/user.service";
+import { MoneyService } from '@shared/services/money.service';
+import { TMovService } from '@shared/services/tmov.service';
+
+const COMPONENTS = [TransfieroComponent];
+const COMPONENTS_DYNAMIC = [];
 
 @NgModule({
-    imports: [CommonModule, TransfieroRoutingModule, FormsModule, ReactiveFormsModule,
-        NotifierModule, ZXingScannerModule, AutocompleteLibModule,
-        NgbModule],
-    exports: [TransfieroComponent],
-    providers: [UserService, MoneyService, TMovService],
-    declarations: [TransfieroComponent]
+  imports: [
+    SharedModule,
+    TransfieroRoutingModule,
+    TransfieroComponent,    
+    AutocompleteLibModule,
+  ],
+  declarations: [
+    ...COMPONENTS,
+    ...COMPONENTS_DYNAMIC
+  ],
+  exports: [TransfieroComponent],
+  entryComponents: COMPONENTS_DYNAMIC,
+ 
 })
+
 export class TransfieroModule { }

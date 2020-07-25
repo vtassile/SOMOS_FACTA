@@ -1,0 +1,39 @@
+@import "../../../colores.scss";
+
+::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+}
+
+.mat-header-cell {
+    color: white !important;
+    background-color: $main-oscuro-propio;
+}
+
+::ng-deep .mat-sort-header-arrow {
+    color: #fff;
+}
+
+.mat-header-cell {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mat-cell {
+    text-align: center;
+    justify-content: center;
+}
+
+img {
+    width: 70px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+@media screen and (min-width: 992px) {
+    img {
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+    }
+}

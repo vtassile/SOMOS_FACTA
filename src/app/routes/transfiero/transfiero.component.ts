@@ -8,7 +8,6 @@ import {
   OnInit
 } from "@angular/core";
 import { Router } from "@angular/router";
-import { routerTransition } from "../router.animations";
 import {
   FormsModule,
   FormGroup,
@@ -17,35 +16,27 @@ import {
   Validators
 } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
-import { NotifierModule } from "angular-notifier";
 
-import { ZXingScannerComponent } from "@zxing/ngx-scanner";
-import { Result } from "@zxing/library";
+import { User } from "@shared/models/user.model";
+import { Money } from "@shared/models/money.model";
+import { TMov } from "@shared/models/tmov.model";
+import { Seteo } from "@shared/models/seteo.model";
 
-import { User } from "../models/user.model";
-import { Money } from "@app/models/money.model";
-import { TMov } from "@app/models/tmov.model";
-import { Seteo } from "@app/models/seteo.model";
+import { UserService } from "@shared/services/user.service";
+import { MoneyService } from '@shared/services/money.service';
+import { TMovService } from '@shared/services/tmov.service';
+import { SeteoService } from "@shared/services/seteo.service";
+import { SesionService } from "@shared/services/sesion.service";
 
-import { UserService } from "@app/service/user.service";
-import { MoneyService } from "@app/service/money.service";
-import { NotifierService } from "angular-notifier";
-import { TMovService } from "@app/service/tmov.service";
-import { SeteoService } from "@app/service/seteo.service";
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-
-
-import { Howl, Howler } from "howler";
 
 @Component({
   selector: "app-transfiero",
   templateUrl: "./transfiero.component.html",
   styleUrls: ["./transfiero.component.scss"],
-  animations: [routerTransition()]
 })
 export class TransfieroComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
-  private readonly notifier: NotifierService;
   public identity;
   moneys: Money[];
   tmovs: TMov[];
@@ -54,7 +45,7 @@ export class TransfieroComponent implements OnInit {
   u_id: string[] = [];
   u_nombre: string[] = [];
   u_apellido: string[] = [];
-  nombre: string="";
+  nombre: string = "";
   apellido: string;
   seteo: Seteo[];
 
@@ -67,16 +58,7 @@ export class TransfieroComponent implements OnInit {
   public permite;
   keyword = 's_username';
 
-
-  @ViewChild("scanner")
-  scanner: ZXingScannerComponent;
   @ViewChild("importe_d") nameField: ElementRef;
-
-  hasCameras = false;
-  hasPermission: boolean;
-  qrResultString: string;
-  availableDevices: MediaDeviceInfo[];
-  selectedDevice: MediaDeviceInfo;
 
   constructor(
     public router: Router,
@@ -84,18 +66,17 @@ export class TransfieroComponent implements OnInit {
     private tmovservice: TMovService,
     private seteoservice: SeteoService,
     private moneyservice: MoneyService,
-    notifierService: NotifierService,
+    private _sesionService: SesionService,
     private fb: FormBuilder
   ) {
-    this.notifier = notifierService;
   }
 
   ngOnInit() {
     this.permite = true;
-    let temporal = this._userService.getIdentity();
+    let temporal = this._sesionService.getIdentity();
     this.identity = JSON.parse(temporal);
 
-    this._userService.fecha_servidor().subscribe(data => {
+    this._sesionService.fecha_servidor().subscribe(data => {
       this.fecha_servidor = data;
       this.angForm_2 = this.fb.group({
         usuario: "",
@@ -142,36 +123,18 @@ export class TransfieroComponent implements OnInit {
       importe_h: 0,
       contrasena: ""
     });
-
-
   }
 
   selectEvent(result) {
     this.permite = false;
     this.query3 = result.s_username;
     this.cambia_u(this.query3);
-    this.selectedDevice = null;
-    this.PlaySound(1);
+
     this.permite = true;
     this.nameField.nativeElement.focus();
   }
 
-  handleQrCodeResult(resultString: string) {
-  }
-
-  onDeviceSelectChange(selectedValue: string) {
-  }
-
-  PlaySound(codigo) {
-    if (codigo == 1) {
-      var sound = new Howl({ src: ["assets/sounds/beep-07.wav"] });
-    }
-    if (codigo == 2) {
-      var sound = new Howl({ src: ["assets/sounds/beep-05.wav"] });
-    }
-    sound.play();
-  }
-
+ 
   addPago() {
     if (this.query3 != "") {
       if (this.angForm_2.value.importe_d != null) {
@@ -180,11 +143,11 @@ export class TransfieroComponent implements OnInit {
             s_username: this.identity.s_username,
             s_clave: this.angForm_2.value.contrasena
           };
-          this._userService.signup(datos10).subscribe(
+          this._sesionService.signup(datos10).subscribe(
             response => {
               var c_limite = this.cuenta.Saldo - this.angForm_2.value.importe_d;
               if (c_limite < this.seteo[0].m_saldo) {
-                this.notifier.notify("warning", "Te excediste de tu limite");
+                //           this.notifier.notify("warning", "Te excediste de tu limite");
               } else {
                 var datos = {
                   usuario: this.angForm_2.value.usuario,
@@ -206,11 +169,11 @@ export class TransfieroComponent implements OnInit {
                   this.moneyservice
                     .add(datos2)
                     .subscribe(res => {
-                      this.notifier.notify("success", "Operacion Exitosa");
+                      //            this.notifier.notify("success", "Operacion Exitosa");
                     }
                     );
                   this.obt_saldo(this.identity._id);
-                  this.PlaySound(1);
+
                   this.sendMessage();
                   this.query3 = "";
                   this.angForm_2 = this.fb.group({
@@ -229,11 +192,11 @@ export class TransfieroComponent implements OnInit {
               }
             },
             error => {
-              this.notifier.notify("warning", "Contraseña Incorrecta");
+              //        this.notifier.notify("warning", "Contraseña Incorrecta");
             }
           );
         } else {
-          this.notifier.notify("warning", "Cargá dinero en tu cuenta");
+          //      this.notifier.notify("warning", "Cargá dinero en tu cuenta");
         }
       }
     }

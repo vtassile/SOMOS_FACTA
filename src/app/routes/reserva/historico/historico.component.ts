@@ -11,7 +11,7 @@ import { Reserva } from '@shared';
 @Component({
   selector: 'app-historico',
   templateUrl: './historico.component.html',
-  styleUrls: ['./historico.component.css']
+  styleUrls: ['./historico.component.scss']
 })
 export class HistoricoComponent implements OnChanges, OnInit {
 
@@ -25,6 +25,8 @@ export class HistoricoComponent implements OnChanges, OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input('usuario') usuario: any;
+  @Input('detecta') detecta: any;
+
 
   @Output()
   propaga_reserva = new EventEmitter<string>();

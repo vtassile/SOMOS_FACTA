@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, ViewChild, Input } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit, ViewChild, Input,OnChanges, SimpleChange } from "@angular/core";
 import { Router } from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -34,10 +34,11 @@ import {
   styleUrls: ["./solicitud2.component.scss"]
 })
 
-export class Solicitud2Component implements OnInit {
+export class Solicitud2Component implements OnChanges, OnInit {
 
 
   @Input('usuario') usuario: any;
+  @Input('detecta') detecta: any;
 
   @Output()
   propaga_todo = new EventEmitter<string>();
@@ -138,7 +139,7 @@ export class Solicitud2Component implements OnInit {
       this.identity = this._sesionService.getIdentity();
       this.rol = parseInt(this.identity.rol.n_nivel);
       this.token = this._sesionService.getToken();
-      
+ 
       this.importe = this.identity.clase.importe;
       this.importe00 = this.importe;
       this.prefiere = this.identity.tmenu._id;
@@ -153,14 +154,15 @@ export class Solicitud2Component implements OnInit {
         this.f_sem = this._sesionService.cambia_fecha(this.fecha_servidor, 6 - this.i_dia);
         this.tmenuservice.get().subscribe((data2: TMenu[]) => {
           this.tmenus = data2;
+
           this.mdiaservice.get().subscribe((data3: MDia[]) => {
             this.mdias = data3.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem);
             // this.mdias = data3;
             this.reservaservice
-              .get_filtro(this.usuario)
+              .get_filtro(this.usuario._id)
               .subscribe((data4: Reserva[]) => {
                 this.reservas = data4.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem)   
-       //         this.reservas=data4;
+                   //    this.reservas=data4;
                 this._userService
                   .c_reserva(
                     this.fecha_servidor,
@@ -170,10 +172,71 @@ export class Solicitud2Component implements OnInit {
                   .subscribe((data5) => {
                     this.posible = data5;
                     this.moneyservice
-                      .get_filtro(this.usuario)
+                      .get_filtro(this.usuario._id)
                       .subscribe((data2: Money[]) => {
                         this.money = data2;
-                         this.obt_saldo(this.usuario);
+                         this.obt_saldo(this.usuario._id);
+                        this.tmovservice.get().subscribe((data2: TMov[]) => {
+                          this.tmovs = data2;
+                          this.maqueta = this.maqueta_fecha(this.maqueta);
+                          this.permite = true;
+                
+                        });
+                      });
+                  });
+              });
+          });
+
+        });
+      });
+    });
+  }  // fin de ngonInit
+
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
+    this.obt_m1 = [["Otro-Sin Menú", "Otro-Sin Menú"], ["Otro-Sin Menú", "Otro-Sin Menú"],
+    ["Otro-Sin Menú", "Otro-Sin Menú"], ["Otro-Sin Menú", "Otro-Sin Menú"], ["Otro-Sin Menú", "Otro-Sin Menú"],
+    ["Otro-Sin Menú", "Otro-Sin Menú"], ["Otro-Sin Menú", "Otro-Sin Menú"]];
+  
+    this.obt_m2 = [["", ""], ["", ""], ["", ""], ["", ""], ["", ""],
+    ["", ""], ["", ""]];
+  
+    this.obt_m3 = [["", ""], ["", ""], ["", ""], ["", ""], ["", ""],
+    ["", ""], ["", ""]];
+  
+    this.m_inicial = ["", "", "", "", "", "", ""];
+
+    this.seteoservice.get().subscribe((data2: Seteo[]) => {
+      this.seteo = data2;
+      this.m_viandas = this.seteo[0].m_viandas;
+      this._sesionService.fecha_servidor().subscribe((data) => {
+        this.fecha_servidor = data;
+        this.i_dia = this._sesionService.n_semana(this.fecha_servidor);
+        this.i_sem = this._sesionService.cambia_fecha(this.fecha_servidor, -(this.i_dia));
+        this.f_sem = this._sesionService.cambia_fecha(this.fecha_servidor, 6 - this.i_dia);
+        this.tmenuservice.get().subscribe((data2: TMenu[]) => {
+          this.tmenus = data2;
+
+          this.mdiaservice.get().subscribe((data3: MDia[]) => {
+            this.mdias = data3.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem);
+            // this.mdias = data3;
+            this.reservaservice
+              .get_filtro(this.usuario._id)
+              .subscribe((data4: Reserva[]) => {
+                this.reservas = data4.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem)   
+                   //    this.reservas=data4;
+                this._userService
+                  .c_reserva(
+                    this.fecha_servidor,
+                    this.fecha_servidor,
+                    this.seteo[0].l_abono
+                  )
+                  .subscribe((data5) => {
+                    this.posible = data5;
+                    this.moneyservice
+                      .get_filtro(this.usuario._id)
+                      .subscribe((data2: Money[]) => {
+                        this.money = data2;
+                         this.obt_saldo(this.usuario._id);
                         this.tmovservice.get().subscribe((data2: TMov[]) => {
                           this.tmovs = data2;
                           this.maqueta = this.maqueta_fecha(this.maqueta);
@@ -184,10 +247,16 @@ export class Solicitud2Component implements OnInit {
                   });
               });
           });
+
         });
       });
     });
-  }  // fin de ngonInit
+
+    
+
+
+  }
+
 
   public getSantizeUrl(url: string) {
     return this.sanitizer.bypassSecurityTrustUrl(url);
@@ -326,7 +395,7 @@ export class Solicitud2Component implements OnInit {
           //   this.notifier.notify("warning", "Te excediste de tu limite");
         } else {
           var datos90 = {
-            usuario: this.usuario,
+            usuario: this.usuario._id,
             f_fecha:  this._sesionService.fecha_inv_formateada(this.maqueta[indice_ff1][0]),
             n_menu: _idmenu,
             n_cantidad: this.cantidad00,
@@ -337,7 +406,7 @@ export class Solicitud2Component implements OnInit {
           };
           this.reservaservice.add(datos90).subscribe((res) => {
             this.reservaservice
-              .get_filtro(this.usuario)
+              .get_filtro(this.usuario._id)
               .subscribe((data2: Reserva[]) => {
                 this.reservas = data2;
                 this.paga_vianda(this.maqueta[indice_ff1][0]);
@@ -355,7 +424,7 @@ export class Solicitud2Component implements OnInit {
     var dia = dia_x.substr(0, 2);
     var mes = dia_x.substr(3, 2);
     var datos00 = {
-      usuario: this.usuario,
+      usuario: this.usuario._id,
       f_fecha: this.fecha_servidor,
       tmov: this.tmovs[1]._id,
       detalle: "Vianda del " + dia + "/" + mes,
@@ -364,10 +433,10 @@ export class Solicitud2Component implements OnInit {
     };
     this.moneyservice.add(datos00).subscribe((res) => {
       this.moneyservice
-        .get_filtro(this.usuario)
+        .get_filtro(this.usuario._id)
         .subscribe((data2: Money[]) => {
           this.money = data2;
-          this.obt_saldo(this.usuario);
+          this.obt_saldo(this.usuario._id);
           this.propaga_todo.emit("solicita");
         });
     });

@@ -5,7 +5,7 @@
         <mat-cell *matCellDef="let element"> {{element.f_fecha | date: "dd/MM"}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="n_menu.s_detmenu">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-header-cell *matHeaderCellDef >  </mat-header-cell>
         <mat-cell *matCellDef="let element" fxLayoutGap="5px">
           <img *ngIf="element.n_menu.s_imagen" [src]="element.n_menu.s_imagen" />
         </mat-cell>
@@ -32,7 +32,7 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef > </mat-header-cell>
         <mat-cell *matCellDef="let element" class="action-link">
           <button mat-icon-button class="boton" color="warn" matTooltip="Borra" (click)="delete(element)">
             <mat-icon>delete</mat-icon>

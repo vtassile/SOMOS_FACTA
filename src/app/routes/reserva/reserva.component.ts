@@ -51,6 +51,7 @@ export class ReservaComponent implements OnInit {
   reservas = null;
   moneys: Money[];
   cuenta: any = {};
+  detecta:number=0;
 
   constructor(public router: Router, private mdiaservice: MDiaService,
     private tmenuservice: TMenuService,
@@ -69,6 +70,7 @@ export class ReservaComponent implements OnInit {
       this.rol = parseInt(this.identity.rol.n_nivel);
       this.token = this._sesionService.getToken();
       this.usuario = this.identity;
+  
     }
 
     this._sesionService
@@ -116,30 +118,16 @@ export class ReservaComponent implements OnInit {
   }
 
   actualiza_money(motivo_cambio) {
-    this.obt_saldo(this.usuario._id);
+    this.actualiza_todo(motivo_cambio);
   }
 
   actualiza_reserva(motivo_cambio) {
-    this.reservaservice
-      .get_filtro(this.usuario._id)
-      .subscribe((data2: Reserva[]) => {
-        this.reservas = data2;
-      });
+  this.actualiza_todo(motivo_cambio);
   }
 
   actualiza_todo(motivo_cambio) {
-      this.reservaservice
-        .get_filtro(this.usuario._id)
-        .subscribe((data2: Reserva[]) => {
-          this.reservas = data2;
-
-          this.moneyservice
-            .get_filtro(this.usuario._id)
-            .subscribe((data2: Money[]) => {
-              this.moneys = data2;
-              this.obt_saldo(this.usuario._id);
-            });
-        });
+    this.detecta=this.detecta+1;
+    this.cambia_u(this.usuario.s_username);
   }
 
   exportAsXLSX(): void {
@@ -162,16 +150,15 @@ export class ReservaComponent implements OnInit {
         .get_filtro(this.usuario._id)
         .subscribe((data2: Money[]) => {
           this.moneys = data2;
-
           this.moneyservice
             .get_saldo(this.usuario._id)
             .subscribe((data2) => {
               this.cuenta = data2[0];
+            
             });
           this.obt_saldo(this.usuario._id);
         });
     }
-
   }
 
 

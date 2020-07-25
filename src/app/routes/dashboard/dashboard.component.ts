@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { DomSanitizer } from '@angular/platform-browser';
+
 
 import {
   SwiperComponent, SwiperDirective, SwiperConfigInterface,
@@ -45,7 +47,8 @@ export class DashboardComponent implements OnInit {
     hideOnClick: false
   };
 
-  constructor(private seteoservice: SeteoService) {
+  constructor(private seteoservice: SeteoService,private sanitizer: DomSanitizer)
+  {
     this.seteoservice
       .get()
       .subscribe((carrusel: Seteo[]) => {
@@ -58,6 +61,10 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  public getSantizeUrl(url: string) {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+  
   public onIndexChange(index: number) {
     //  console.log('Swiper index: ', index);
   }

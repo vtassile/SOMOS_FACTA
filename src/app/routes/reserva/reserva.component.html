@@ -1,8 +1,8 @@
 <page-header></page-header>
 
-<mat-card-header class="encabezado" fxLayoutGap="10px" fxLayoutAlign="center center" fxLayout.md="column">
+<mat-card-header class="encabezado" fxLayoutGap="10px" fxLayoutAlign="center center" fxLayout="row wrap">
   <div *ngIf="data_11 && rol>2" class="ng-autocomplete" fxLayout="row" fxLayoutAlign="center center">
-    <ng-autocomplete [data]="data_11 " (selected)='selectEvent($event)' [searchKeyword]="keyword"
+    <ng-autocomplete [data]="data_11 "  (selected)='selectEvent($event)' [searchKeyword]="keyword"
       placeHolder="Ingrese Usuario" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
     </ng-autocomplete>
     <ng-template #itemTemplate let-item>
@@ -20,22 +20,23 @@
   <mat-tab label="Pedido">
     <br>
     <mat-card>
-      <app-solicitud2 *ngIf="usuario" [usuario]="usuario" (propaga_todo)="actualiza_todo($event)"></app-solicitud2>
+      <app-solicitud2 *ngIf="usuario" [detecta]="detecta"  [usuario]="usuario" (propaga_todo)="actualiza_todo($event)"></app-solicitud2> 
     </mat-card>
   </mat-tab>
 
   <mat-tab label="Historia">
 
-    <app-historico *ngIf="usuario" [usuario]="usuario" (propaga_reserva)="actualiza_reserva($event)"></app-historico>
+    <app-historico *ngIf="usuario" [detecta]="detecta" [usuario]="usuario" (propaga_reserva)="actualiza_reserva($event)"></app-historico>
 
   </mat-tab>
 
   <mat-tab label="Cuenta">
-    <app-cuenta *ngIf="usuario" [usuario]="usuario" (propaga_money)="actualiza_money($event)"></app-cuenta>
+    <app-cuenta *ngIf="usuario" [detecta]="detecta" [usuario]="usuario" (propaga_money)="actualiza_money($event)"></app-cuenta>
 
   </mat-tab>
-
 
   <mat-tab label="Presto">
+  <!--  <app-transfiero *ngIf="usuario"> </app-transfiero>  -->
   </mat-tab>
+  
 </mat-tab-group>

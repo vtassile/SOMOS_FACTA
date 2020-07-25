@@ -11,7 +11,7 @@ import { Money } from '@shared';
 @Component({
   selector: 'app-cuenta',
   templateUrl: './cuenta.component.html',
-  styleUrls: ['./cuenta.component.css']
+  styleUrls: ['./cuenta.component.scss']
 })
 export class CuentaComponent implements OnChanges,OnInit  {
 
@@ -26,6 +26,8 @@ export class CuentaComponent implements OnChanges,OnInit  {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input('usuario') usuario: any;
+  @Input('detecta') detecta: any;
+
 
   @Output()
   propaga_money = new EventEmitter<string>();

@@ -7,7 +7,7 @@
       "nivel":1
     },
     {
-      "route": "my_QR",
+      "route": "carnet",
       "name": "my_QR",
       "type": "link",
       "icon": "fingerprint",
@@ -52,6 +52,27 @@
         }
       ]
     },
+    {
+      "route": "shopping",
+      "name": "shopping",
+      "type": "link",
+      "icon": "shopping_cart",
+      "nivel":1
+    },
+    {
+      "route": "sports",
+      "name": "sports",
+      "type": "link",
+      "icon": "rowing",
+      "nivel":1
+    },
+      {
+        "route": "rentals",
+        "name": "rentals",
+        "type": "link",
+        "icon": "event_seat",
+        "nivel":1
+      },
     {
       "route": "tusuario",
       "name": "users",

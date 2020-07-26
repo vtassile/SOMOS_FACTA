@@ -73,7 +73,10 @@
         "dinning_room.consumptions":"Consumos",
         "dinning_room.various_tables":"Tablas Varias",
         "users":"Usuarios",
-        "configurations":"Configuraciones"
+        "configurations":"Configuraciones",
+        "shopping":"Compras",
+        "rentals":"Alquileres",
+        "sports":"Recreación"
     },
     "user": {
         "profile": "Perfil",

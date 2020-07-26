@@ -59,6 +59,8 @@ export class NMDiaComponent implements OnInit {
     var fecha_corta=this._sesionService.fecha_corta(this.angForm_2.value.f_fecha);
     this.angForm_2.get("f_fecha").setValue(fecha_corta);
     this.mdiaservice.add(this.angForm_2.value);
+    this._sesionService.mensaje("El Menú se Agregó con Exito");
+
     this.router.navigate([" "]);
   }
 

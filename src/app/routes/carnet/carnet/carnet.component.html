@@ -1,0 +1,9 @@
+<page-header></page-header>
+
+<mat-card fxLayout="column" fxLayoutAlign="center center">
+    <img ngif="imagen" mat-card-avatar src="{{imagen}}" alt="User Avatar">
+    <p class="texto">{{identity.s_username}}</p>
+    <h3 class="texto">{{identity.s_name}}&nbsp;{{identity.s_surname}} </h3>
+    <qrcode class="texto" [qrdata]="identity._id" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+
+</mat-card>

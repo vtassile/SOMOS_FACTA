@@ -6,6 +6,8 @@ import * as CryptoJS from 'crypto-js';
 import { map } from "rxjs/operators";
 import { Observable, Subject } from "rxjs";
 
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+
 import { USUARIOS } from "@shared";
 import { CLAVES } from "@shared";
 
@@ -13,14 +15,15 @@ import { CLAVES } from "@shared";
 export class SesionService {
 
   public url: string;
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _snackBar: MatSnackBar
+  ) {
     this.url = USUARIOS.url;
   }
 
   public identity;
   public token;
   public rol_u;
-  
+
   signup(user_to_login, gethash = null): Observable<any> {
     if (gethash != null) {
       user_to_login.gethash = gethash;
@@ -95,7 +98,7 @@ export class SesionService {
     } else {
       this.identity = null;
     }
-    this.identity=JSON.parse(identidad2);
+    this.identity = JSON.parse(identidad2);
     return this.identity;
   }
 
@@ -132,88 +135,96 @@ export class SesionService {
 
   d_semana(fecha_a) {
     //   var fecha_a = this.angForm_2.value.fecha_solicitud;
-       var dia1 = fecha_a.substr(8, 2);
-       var mes1 = fecha_a.substr(5, 2);
-       var anyo1 = fecha_a.substr(0, 4);
-       var nuevafecha = new Date(anyo1 + "," + mes1 + "," + dia1);
-       var diasSemana = new Array(
-         "Domingo",
-         "Lunes",
-         "Martes",
-         "Miercoles",
-         "Jueves",
-         "Viernes",
-         "Sabado"
-       );
-       return diasSemana[nuevafecha.getDay()];
-     }
-   
-     n_semana(fecha_a) {
-       //   var fecha_a = this.angForm_2.value.fecha_solicitud;
-          var dia1 = fecha_a.substr(8, 2);
-          var mes1 = fecha_a.substr(5, 2);
-          var anyo1 = fecha_a.substr(0, 4);
-          var nuevafecha = new Date(anyo1 + "," + mes1 + "," + dia1);
-          return nuevafecha.getDay();
-        }
-   
-     fecha_formateada(fecha_a) {
-       var dia1 = fecha_a.substr(8, 2);
-       var mes1 = fecha_a.substr(5, 2);
-       var anyo1 = fecha_a.substr(0, 4);
-       var nuevafecha = dia1 + "-" + mes1 + "-" + anyo1;
-       return nuevafecha;
-     }
-   
-     fecha_inv_formateada(fecha_a) {
-       console.log("esto esta intrando en fecha inversa");
-       console.log(fecha_a);
-      var dia1 = fecha_a.substr(0, 2);
-      var mes1 = fecha_a.substr(3, 2);
-      var anyo1 = fecha_a.substr(6, 4);
-      var nuevafecha = anyo1 + "-" + mes1 + "-" +dia1 ;
-      return nuevafecha;
+    var dia1 = fecha_a.substr(8, 2);
+    var mes1 = fecha_a.substr(5, 2);
+    var anyo1 = fecha_a.substr(0, 4);
+    var nuevafecha = new Date(anyo1 + "," + mes1 + "," + dia1);
+    var diasSemana = new Array(
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miercoles",
+      "Jueves",
+      "Viernes",
+      "Sabado"
+    );
+    return diasSemana[nuevafecha.getDay()];
+  }
+
+  n_semana(fecha_a) {
+    //   var fecha_a = this.angForm_2.value.fecha_solicitud;
+    var dia1 = fecha_a.substr(8, 2);
+    var mes1 = fecha_a.substr(5, 2);
+    var anyo1 = fecha_a.substr(0, 4);
+    var nuevafecha = new Date(anyo1 + "," + mes1 + "," + dia1);
+    return nuevafecha.getDay();
+  }
+
+  fecha_formateada(fecha_a) {
+    var dia1 = fecha_a.substr(8, 2);
+    var mes1 = fecha_a.substr(5, 2);
+    var anyo1 = fecha_a.substr(0, 4);
+    var nuevafecha = dia1 + "-" + mes1 + "-" + anyo1;
+    return nuevafecha;
+  }
+
+  fecha_inv_formateada(fecha_a) {
+    console.log("esto esta intrando en fecha inversa");
+    console.log(fecha_a);
+    var dia1 = fecha_a.substr(0, 2);
+    var mes1 = fecha_a.substr(3, 2);
+    var anyo1 = fecha_a.substr(6, 4);
+    var nuevafecha = anyo1 + "-" + mes1 + "-" + dia1;
+    return nuevafecha;
+  }
+
+  fecha_corta(fecha_a) {
+    var nuevafecha = (fecha_a.format("YYYY-MM-DD")).toString();
+
+    return nuevafecha;
+  }
+
+  cambia_fecha(fecha_a, dias) {
+    var dia1 = fecha_a.substr(8, 2);
+    var mes1 = fecha_a.substr(5, 2);
+    var anyo1 = fecha_a.substr(0, 4);
+    var nuevafecha = new Date(anyo1 + "," + mes1 + "," + dia1);
+    // Sumamos los dias a la fecha
+    nuevafecha.setDate(nuevafecha.getDate() + dias);
+    // Obtenemos el dia, mes y año de la fecha de devolucion
+    var dia2 = nuevafecha.getDate();
+    var mes2 = nuevafecha.getMonth() + 1;
+    var anio2 = nuevafecha.getFullYear();
+    var dia3 = "";
+    var mes3 = "";
+    if (dia2 < 10) {
+      dia3 = "0" + dia2.toString();
+    } else {
+      dia3 = dia2.toString();
     }
-
-
-
-     fecha_corta(fecha_a) {
-        var nuevafecha=(fecha_a.format("YYYY-MM-DD")).toString();
-
-      return nuevafecha;
+    if (mes2 < 10) {
+      mes3 = "0" + mes2.toString();
+    } else {
+      mes3 = mes2.toString();
     }
+    var nuevafecha2 = anio2.toString() + "-" + mes3 + "-" + dia3;
+    return nuevafecha2;
+  }
 
-     cambia_fecha(fecha_a,dias) {
-       var dia1 = fecha_a.substr(8, 2);
-       var mes1 = fecha_a.substr(5, 2);
-       var anyo1 = fecha_a.substr(0, 4);
-       var nuevafecha = new Date(anyo1 + "," + mes1 + "," + dia1);
-       // Sumamos los dias a la fecha
-       nuevafecha.setDate(nuevafecha.getDate() + dias);
-       // Obtenemos el dia, mes y año de la fecha de devolucion
-       var dia2 = nuevafecha.getDate();
-       var mes2 = nuevafecha.getMonth() + 1;
-       var anio2 = nuevafecha.getFullYear();
-       var dia3 = "";
-       var mes3 = "";
-       if (dia2 < 10) {
-         dia3 = "0" + dia2.toString();
-       } else {
-         dia3 = dia2.toString();
-       }
-       if (mes2 < 10) {
-         mes3 = "0" + mes2.toString();
-       } else {
-         mes3 = mes2.toString();
-       }
-       var nuevafecha2 = anio2.toString() + "-" + mes3 + "-" + dia3;
-      return nuevafecha2;
-     }
-   
+  mensaje(message: string, action?:string,horizontal?:any,vertical?:any,tipo?:any) {
+    var horizontal0;
+    var vertical0;
+    var action0;
+     if(!action){action0=""} else {action0=action}
+     if(!horizontal){horizontal0="right"}else{horizontal0=horizontal;}
+     if(!vertical){ vertical0="bottom"} else {vertical0=vertical;}
 
-
-
-
+    this._snackBar.open(message, action0, {
+      duration: 4000,
+      horizontalPosition: horizontal0,
+      verticalPosition: vertical0
+    });
+  }
 
 
 

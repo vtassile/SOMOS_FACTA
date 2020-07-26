@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'dinning_room/reserva', loadChildren: () => import('./reserva/reserva.module').then(m => m.ReservaModule) },
   { path: 'dinning_room/mdia', loadChildren: () => import('./mdia/mdia.module').then(m => m.MDiaModule) },
   { path: 'n_mdia', loadChildren: () => import('./n-mdia/n-mdia.module').then(m => m.NMDiaModule) },
-    ],
+  { path: 'carnet', loadChildren: () => import('./carnet/carnet.module').then(m => m.CarnetModule) },    ],
   },
   {
     path: 'auth',

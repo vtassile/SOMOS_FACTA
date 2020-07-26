@@ -63,19 +63,17 @@ export class MDiaComponent implements OnInit {
         this.data = data2;
         this.data = new MatTableDataSource(data2);
         this.data.paginator = this.paginator;
-        console.log(this.data);
+
       });
 
   }
 
   modifica(parametro) {
-    console.log("Esta pasando por aca");
-    console.log(parametro);
     //  this.router.navigate(["n_mdia", parametro._id]);
   }
 
-  add(){
-   this.router.navigate(["n_mdia"]);
+  add() {
+    this.router.navigate(["n_mdia"]);
 
   }
 

@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
         this.identity = JSON.parse(identity);
         let id_ident = JSON.stringify(response.user._id);
         if (!id_ident) {
-          this.mensaje("No pudimos identificar el Usuario");
+          this._sesionService.mensaje("No pudimos identificar el Usuario");
         } else {
           // Crear elemento en el localstorage para tener al usuario en sesion
           let identity_c = CryptoJS.AES.encrypt(identity.trim(), CLAVES.localstore.toString()).toString();
@@ -85,7 +85,7 @@ export class LoginComponent implements OnInit {
               let token = response.token;
               this.token = token;
               if (this.token.length < 1) {
-                this.mensaje("El token no se ha generado");
+                this._sesionService.mensaje("El token no se ha generado");
               } else {
                 // Crear elemento en el localstorage para tener token disponible
                 localStorage.setItem("isLoggedin", "true");
@@ -97,7 +97,7 @@ export class LoginComponent implements OnInit {
               var errorMessage = <any>error;
               if (errorMessage != null) {
                 this.errorMessage = error;
-                this.mensaje(this.errorMessage.error.message);
+                this._sesionService.mensaje(this.errorMessage.error.message);
               }
             }
           );
@@ -107,7 +107,7 @@ export class LoginComponent implements OnInit {
         var errorMessage = <any>error;
         if (errorMessage != null) {
           this.errorMessage = error;
-          this.mensaje(this.errorMessage.error.message);
+          this._sesionService.mensaje(this.errorMessage.error.message);
         }
       }
     );
@@ -117,7 +117,7 @@ export class LoginComponent implements OnInit {
     event.preventDefault();
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => {
       if (!x) {
-        this.mensaje("Usuario de Facebook no Registrado");
+        this._sesionService.mensaje("Usuario de Facebook no Registrado");
         this.signOut();
         return;
       }
@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit {
           let id_ident = JSON.stringify(response.user._id);
 
           if (!id_ident) {
-            this.mensaje("No se ha identificado al Usuario");
+            this._sesionService.mensaje("No se ha identificado al Usuario");
           } else {
             // Crear elemento en el localstorage para tener al usuario en sesion
             let identity_c = CryptoJS.AES.encrypt(identity.trim(), CLAVES.localstore.toString()).toString();
@@ -144,7 +144,7 @@ export class LoginComponent implements OnInit {
                 let token = response.token;
                 this.token = token;
                 if (this.token.length < 1) {
-                  this.mensaje("El token no se ha generado");
+                  this._sesionService.mensaje("El token no se ha generado");
                 } else {
                   // Crear elemento en el localstorage para tener token disponible
                   localStorage.setItem("isLoggedin", "true");
@@ -157,7 +157,7 @@ export class LoginComponent implements OnInit {
                 var errorMessage = <any>error;
                 if (errorMessage != null) {
                   this.errorMessage = error;
-                  this.mensaje(this.errorMessage.error.message);
+                  this._sesionService.mensaje(this.errorMessage.error.message);
                   this.signOut();
                 }
               }
@@ -168,7 +168,7 @@ export class LoginComponent implements OnInit {
           var errorMessage = <any>error;
           if (errorMessage != null) {
             this.errorMessage = error;
-            this.mensaje(this.errorMessage.error.message);
+            this._sesionService.mensaje(this.errorMessage.error.message);
             this.signOut();
           }
         }
@@ -180,7 +180,7 @@ export class LoginComponent implements OnInit {
     event.preventDefault();
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => {
       if (!x) {
-        this.mensaje("Usuario de Google no Registrado");
+        this._sesionService.mensaje("Usuario de Google no Registrado");
         this.signOut();
         return;
       }
@@ -195,7 +195,7 @@ export class LoginComponent implements OnInit {
           let id_ident = JSON.stringify(response.user._id);
 
           if (!id_ident) {
-            this.mensaje("No pudimos identificar el Usuario");
+            this._sesionService.mensaje("No pudimos identificar el Usuario");
           } else {
             // Crear elemento en el localstorage para tener al usuario en sesion
             let identity_c = CryptoJS.AES.encrypt(identity.trim(), CLAVES.localstore.toString()).toString();
@@ -206,7 +206,7 @@ export class LoginComponent implements OnInit {
                 let token = response.token;
                 this.token = token;
                 if (this.token.length < 1) {
-                  this.mensaje("Token no se ha generado");
+                  this._sesionService.mensaje("Token no se ha generado");
                 } else {
                   // Crear elemento en el localstorage para tener token disponible
                   localStorage.setItem("isLoggedin", "true");
@@ -219,7 +219,7 @@ export class LoginComponent implements OnInit {
                 var errorMessage = <any>error;
                 if (errorMessage != null) {
                   this.errorMessage = error;
-                  this.mensaje(this.errorMessage.error.message);
+                  this._sesionService.mensaje(this.errorMessage.error.message);
                   this.signOut();
                 }
               }
@@ -230,7 +230,8 @@ export class LoginComponent implements OnInit {
           var errorMessage = <any>error;
           if (errorMessage != null) {
             this.errorMessage = error;
-            this.mensaje(this.errorMessage.error.message);
+
+            this._sesionService.mensaje(this.errorMessage.error.message);
             this.signOut();
           }
         }
@@ -242,16 +243,7 @@ export class LoginComponent implements OnInit {
     this.authService.signOut();
   }
 
-  mensaje(message: string) {
-    let action = "";
-    console.log("Esta pasando por el mensaje");
-    this._snackBar.open(message, action, {
-      duration: 3000,
-      horizontalPosition: "right",
-      verticalPosition: "bottom"
-    });
-  }
-
+ 
   sale_login(){
  //   window.location.reload(true);
  this.router.navigateByUrl('/');

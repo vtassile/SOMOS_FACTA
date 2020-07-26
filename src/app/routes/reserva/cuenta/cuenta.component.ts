@@ -70,8 +70,8 @@ export class CuentaComponent implements OnChanges,OnInit  {
           .get_filtro(this.usuario._id)
           .subscribe((data2: Money[]) => {
             this.moneys = data2;
+            this._sesionService.mensaje("El Movimiento se Eliminó con Exito");
             this.propaga_money.emit("borrar");
-            alert("El Movimiento se Eliminó con Exito");
           });
       });
   }

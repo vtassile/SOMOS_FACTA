@@ -147,6 +147,7 @@ export class TransfieroComponent implements OnInit {
             response => {
               var c_limite = this.cuenta.Saldo - this.angForm_2.value.importe_d;
               if (c_limite < this.seteo[0].m_saldo) {
+                this._sesionService.mensaje("Te excediste de tu límite");
                 //           this.notifier.notify("warning", "Te excediste de tu limite");
               } else {
                 var datos = {
@@ -169,6 +170,7 @@ export class TransfieroComponent implements OnInit {
                   this.moneyservice
                     .add(datos2)
                     .subscribe(res => {
+                      this._sesionService.mensaje("Operación Exitosa");
                       //            this.notifier.notify("success", "Operacion Exitosa");
                     }
                     );
@@ -192,10 +194,12 @@ export class TransfieroComponent implements OnInit {
               }
             },
             error => {
+              this._sesionService.mensaje("Contraseña Incorrecta");
               //        this.notifier.notify("warning", "Contraseña Incorrecta");
             }
           );
         } else {
+          this._sesionService.mensaje("Cargá dinero en tu cuenta");
           //      this.notifier.notify("warning", "Cargá dinero en tu cuenta");
         }
       }

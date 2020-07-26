@@ -17,14 +17,14 @@
 </mat-card-header>
 
 <mat-tab-group class="reserva">
-  <mat-tab label="Pedido">
+  <mat-tab label="Pedidos">
     <br>
     <mat-card>
       <app-solicitud2 *ngIf="usuario" [detecta]="detecta"  [usuario]="usuario" (propaga_todo)="actualiza_todo($event)"></app-solicitud2> 
     </mat-card>
   </mat-tab>
 
-  <mat-tab label="Historia">
+  <mat-tab label="Histórico">
 
     <app-historico *ngIf="usuario" [detecta]="detecta" [usuario]="usuario" (propaga_reserva)="actualiza_reserva($event)"></app-historico>
 
@@ -32,10 +32,9 @@
 
   <mat-tab label="Cuenta">
     <app-cuenta *ngIf="usuario" [detecta]="detecta" [usuario]="usuario" (propaga_money)="actualiza_money($event)"></app-cuenta>
-
   </mat-tab>
 
-  <mat-tab label="Presto">
+  <mat-tab label="Prestamos">
   <!--  <app-transfiero *ngIf="usuario"> </app-transfiero>  -->
   </mat-tab>
   

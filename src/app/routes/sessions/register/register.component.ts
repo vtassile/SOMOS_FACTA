@@ -109,7 +109,7 @@ export class RegisterComponent implements OnInit {
       error => {
         var errorMessage = <any>error;
         if (errorMessage != null) {
-          this.mensaje(errorMessage.error.message);
+          this._sesionService.mensaje(errorMessage.error.message);
         }
       }
     );
@@ -124,7 +124,7 @@ export class RegisterComponent implements OnInit {
       error => {
         var errorMessage = <any>error;
         if (errorMessage != null) {
-          this.mensaje(errorMessage.error.message);
+          this._sesionService.mensaje(errorMessage.error.message);
         }
       }
     );
@@ -146,7 +146,7 @@ export class RegisterComponent implements OnInit {
         this.angForm_2.get("id_face").setValue(x.id);
         this.Registro_interno();
       } else {
-        this.mensaje("No pudiste Iniciar sesión con Facebook");
+        this._sesionService.mensaje("No pudiste Iniciar sesión con Facebook");
       }
     });
   }
@@ -162,22 +162,11 @@ export class RegisterComponent implements OnInit {
         this.angForm_2.get("id_google").setValue(x.id);
         this.Registro_interno();
       } else {
-        this.mensaje("No pudiste Iniciar sesión con Google");
+        this._sesionService.mensaje("No pudiste Iniciar sesión con Google");
       }
 
     });
   }
-
-  mensaje(message: string) {
-    let action = "";
-    console.log("Esta pasando por el mensaje");
-    this._snackBar.open(message, action, {
-      duration: 3000,
-      horizontalPosition: "right",
-      verticalPosition: "bottom"
-    });
-  }
-
 
 
 }

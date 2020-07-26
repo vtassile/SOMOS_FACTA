@@ -1,4 +1,3 @@
-
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -139,7 +138,8 @@ export class MusuarioAbcComponent implements OnInit {
   update(event: Event) {
     event.preventDefault();
     if(this.angForm_2.invalid && this.angForm_2.value.s_mostrar ){
-      this.mensaje("Por Favor reingrese Contraseñas Válidad");
+      this._sesionService.mensaje("Por Favor reingrese Contraseñas Válidas");
+
     }else{
     /// aca pedimos cambio de contraseña contra la verificacion de la vieja
     this.route.params.subscribe(params => {
@@ -159,12 +159,13 @@ export class MusuarioAbcComponent implements OnInit {
           this.angForm_2.value.s_imagen
         )
         .subscribe(res => {
-          this.mensaje("Usuario Modificado");
+          this._sesionService.mensaje("Usuario Modificado");
+          
           if (this.angForm_2.value.s_clave_vieja != "" && this.angForm_2.value.mostrar) {
             this._userService
               .resetea2(params["id"], this.angForm_2.value.s_clave_vieja, this.angForm_2.value.s_clave)
               .subscribe(res => {
-                this.mensaje("Contraseña Modificada");
+                this._sesionService.mensaje("Contraseña Modificada");
               });
           }
           this.router.navigate([""]);
@@ -190,9 +191,9 @@ export class MusuarioAbcComponent implements OnInit {
     this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(x => {
       if (x) {
         this.angForm_2.get("id_face").setValue(x.id);
-        this.mensaje("Se ha enlazado tu cuenta de Facebook Satisfactoriamente");
+        this._sesionService.mensaje("Se ha enlazado tu cuenta de Facebook Satisfactoriamente");
       } else {
-        this.mensaje("No pudimos enlazarnos a Facebook");
+        this._sesionService.mensaje("No pudimos enlazarnos a Facebook");
       }
       this.signOut();
     });
@@ -203,9 +204,9 @@ export class MusuarioAbcComponent implements OnInit {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(x => {
       if (x) {
         this.angForm_2.get("id_google").setValue(x.id);
-        this.mensaje("Se ha enlazado tu cuenta de Google Satisfactoriamente");
+        this._sesionService.mensaje("Se ha enlazado tu cuenta de Google Satisfactoriamente");
       } else {
-        this.mensaje("No pudimos enlazarnos a Google");
+        this._sesionService.mensaje("No pudimos enlazarnos a Google");
       }
       this.signOut();
     });
@@ -214,16 +215,6 @@ export class MusuarioAbcComponent implements OnInit {
   signOut(): void {
     this.authService.signOut();
   }
-
-  mensaje(message: string) {
-    let action = "";
-    this._snackBar.open(message, action, {
-      duration: 3000,
-      horizontalPosition: "right",
-      verticalPosition: "bottom"
-    });
-  }
-
 
 
 }

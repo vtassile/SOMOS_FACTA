@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit, ViewChild, Input,OnChanges, SimpleChange } from "@angular/core";
+import { Component, Output, EventEmitter, OnInit, ViewChild, Input, OnChanges, SimpleChange } from "@angular/core";
 import { Router } from "@angular/router";
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -95,7 +95,7 @@ export class Solicitud2Component implements OnChanges, OnInit {
   public identity;  // identidad del agente
   public token;  // token valido del agente
   public rol;   // rol del agente
-  
+
   public fecha_servidor;   /// fecha de servidor
   public prefiere;  // preferencia de menu del agente
   public cuenta;   // cuenta monetaria del agente
@@ -139,7 +139,7 @@ export class Solicitud2Component implements OnChanges, OnInit {
       this.identity = this._sesionService.getIdentity();
       this.rol = parseInt(this.identity.rol.n_nivel);
       this.token = this._sesionService.getToken();
- 
+
       this.importe = this.identity.clase.importe;
       this.importe00 = this.importe;
       this.prefiere = this.identity.tmenu._id;
@@ -161,8 +161,8 @@ export class Solicitud2Component implements OnChanges, OnInit {
             this.reservaservice
               .get_filtro(this.usuario._id)
               .subscribe((data4: Reserva[]) => {
-                this.reservas = data4.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem)   
-                   //    this.reservas=data4;
+                this.reservas = data4.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem)
+                //    this.reservas=data4;
                 this._userService
                   .c_reserva(
                     this.fecha_servidor,
@@ -175,12 +175,12 @@ export class Solicitud2Component implements OnChanges, OnInit {
                       .get_filtro(this.usuario._id)
                       .subscribe((data2: Money[]) => {
                         this.money = data2;
-                         this.obt_saldo(this.usuario._id);
+                        this.obt_saldo(this.usuario._id);
                         this.tmovservice.get().subscribe((data2: TMov[]) => {
                           this.tmovs = data2;
                           this.maqueta = this.maqueta_fecha(this.maqueta);
                           this.permite = true;
-                
+
                         });
                       });
                   });
@@ -196,13 +196,13 @@ export class Solicitud2Component implements OnChanges, OnInit {
     this.obt_m1 = [["Otro-Sin Menú", "Otro-Sin Menú"], ["Otro-Sin Menú", "Otro-Sin Menú"],
     ["Otro-Sin Menú", "Otro-Sin Menú"], ["Otro-Sin Menú", "Otro-Sin Menú"], ["Otro-Sin Menú", "Otro-Sin Menú"],
     ["Otro-Sin Menú", "Otro-Sin Menú"], ["Otro-Sin Menú", "Otro-Sin Menú"]];
-  
+
     this.obt_m2 = [["", ""], ["", ""], ["", ""], ["", ""], ["", ""],
     ["", ""], ["", ""]];
-  
+
     this.obt_m3 = [["", ""], ["", ""], ["", ""], ["", ""], ["", ""],
     ["", ""], ["", ""]];
-  
+
     this.m_inicial = ["", "", "", "", "", "", ""];
 
     this.seteoservice.get().subscribe((data2: Seteo[]) => {
@@ -222,8 +222,8 @@ export class Solicitud2Component implements OnChanges, OnInit {
             this.reservaservice
               .get_filtro(this.usuario._id)
               .subscribe((data4: Reserva[]) => {
-                this.reservas = data4.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem)   
-                   //    this.reservas=data4;
+                this.reservas = data4.filter(e => e.f_fecha >= this.i_sem && e.f_fecha <= this.f_sem)
+                //    this.reservas=data4;
                 this._userService
                   .c_reserva(
                     this.fecha_servidor,
@@ -236,7 +236,7 @@ export class Solicitud2Component implements OnChanges, OnInit {
                       .get_filtro(this.usuario._id)
                       .subscribe((data2: Money[]) => {
                         this.money = data2;
-                         this.obt_saldo(this.usuario._id);
+                        this.obt_saldo(this.usuario._id);
                         this.tmovservice.get().subscribe((data2: TMov[]) => {
                           this.tmovs = data2;
                           this.maqueta = this.maqueta_fecha(this.maqueta);
@@ -251,9 +251,6 @@ export class Solicitud2Component implements OnChanges, OnInit {
         });
       });
     });
-
-    
-
 
   }
 
@@ -280,8 +277,12 @@ export class Solicitud2Component implements OnChanges, OnInit {
     for (let v = 0; v < largo_i; v++) {
       if (seleccion == this.obt_m1[indice_ff1][v]) { indicador = v }
     }
-    if (seleccion == "") { indicador = 1 }
-    this.maqueta[indice_ff1][3] = this.obt_m3[indice_ff1][indicador]
+    if (seleccion == "") {indicador = 1;}
+    if (seleccion=="Otro-Sin Menú"){
+      this.maqueta[indice_ff1][3] ="assets/images/plato_vacio.jpg";
+    }else{
+      this.maqueta[indice_ff1][3] = this.obt_m3[indice_ff1][indicador];
+    }
   }
 
   public maqueta_fecha(maqueta): any {
@@ -374,29 +375,28 @@ export class Solicitud2Component implements OnChanges, OnInit {
   paga(indice_ff1) {
     var seleccion = this.m_inicial[indice_ff1];
     if (seleccion == "Otro-Sin Menú") {
-      alert("No Existe Menú en la Opción Elegida");
+      this._sesionService.mensaje("No Existe Menú en la Opción Elegida");
       return;
     } else {
-      var indicador = 0;
-      this.maqueta[indice_ff1][1] = "4";
-      this.maqueta[indice_ff1][4] = "Pasa a Retirar tu vianda";
-      var largo_i = this.obt_m1[indice_ff1].length;
-      for (let v = 0; v < largo_i; v++) {
-        if (seleccion == this.obt_m1[indice_ff1][v]) { indicador = v }
-      }
-      if (seleccion == "") { indicador = 1 }
-      this.maqueta[indice_ff1][2] = this.obt_m1[indice_ff1][indicador];
-      var _idmenu = this.obt_m2[indice_ff1][indicador];
-      // luego cambiar cantidad para hacerlo mas dinamico
       if (this.cuenta && this.puedo_pedir(indice_ff1)) {
-        //  this.PlaySound(3);
         var c_limite = this.cuenta.Saldo - this.importe;
         if (c_limite < this.seteo[0].m_saldo) {
-          //   this.notifier.notify("warning", "Te excediste de tu limite");
+          this._sesionService.mensaje("Te excediste de tu límite");
         } else {
+          var indicador = 0;
+          this.maqueta[indice_ff1][1] = "4";
+          this.maqueta[indice_ff1][4] = "Pasa a Retirar tu vianda";
+          var largo_i = this.obt_m1[indice_ff1].length;
+          for (let v = 0; v < largo_i; v++) {
+            if (seleccion == this.obt_m1[indice_ff1][v]) { indicador = v }
+          }
+          if (seleccion == "") { indicador = 1 }
+          this.maqueta[indice_ff1][2] = this.obt_m1[indice_ff1][indicador];
+          var _idmenu = this.obt_m2[indice_ff1][indicador];
+
           var datos90 = {
             usuario: this.usuario._id,
-            f_fecha:  this._sesionService.fecha_inv_formateada(this.maqueta[indice_ff1][0]),
+            f_fecha: this._sesionService.fecha_inv_formateada(this.maqueta[indice_ff1][0]),
             n_menu: _idmenu,
             n_cantidad: this.cantidad00,
             tmov: this.tmovs[0]._id,
@@ -411,11 +411,10 @@ export class Solicitud2Component implements OnChanges, OnInit {
                 this.reservas = data2;
                 this.paga_vianda(this.maqueta[indice_ff1][0]);
               });
-        });
+          });
         }
       } else {
-        // if (!this.cuenta)
-        // this.notifier.notify("warning", "Cargá dinero en tu cuenta");
+        if (!this.cuenta) { this._sesionService.mensaje("Carga dínero en tu cuenta"); }
       }
     }
   }

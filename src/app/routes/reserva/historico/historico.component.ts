@@ -71,7 +71,7 @@ export class HistoricoComponent implements OnChanges, OnInit {
           .subscribe((data2: Reserva[]) => {
             this.reservas = data2;
             this.propaga_reserva.emit("borrar");
-            alert("El Movimiento se Eliminó con Exito");
+            this._sesionService.mensaje("El Movimiento se Eliminó con Exito");
           });
       });
   }

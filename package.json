@@ -39,6 +39,7 @@
     "ag-grid-community": "^23.2.1",
     "angular-9-datatable": "^0.1.1",
     "angular-ng-autocomplete": "^2.0.1",
+    "angularx-qrcode": "^2.3.5",
     "angularx-social-login": "^2.3.1",
     "crypto-js": "^4.0.0",
     "file-saver": "^2.0.2",
